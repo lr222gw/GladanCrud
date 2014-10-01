@@ -60,17 +60,53 @@ namespace GladanCRUD
         {
             for (int i = 0; i < this.memberList.Count(); i++)
             {
-                if (this.memberList[i].getThisMemberId() == id)
+                if (this.memberList[i].getThisMemberId() == id){
+
+
                     return this.memberList[i];
+                    
+                    
+                    
+
+                }                    
             }
 
             return null;
         }
+        private int getUserPositionFromList(int id)
+        {
+            for (int i = 0; i < this.memberList.Count(); i++)
+            {
+                if (this.memberList[i].getThisMemberId() == id)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
         
         public void deleteUserById(int input)
         {
-            this.memberList.RemoveAt(this.getUserFromList(input).getThisMemberId());
-            this.saveMemberList();
+            //Denna måste fixas, RemoveAt baserar sig på arrayensplats, (array börjar på 0...) 
+            //Vi anger IDt istället, vi räknar id från 1... så användare med ID 4 ligger på plats 3 i arrayen. 
+            //Om vi anger att vi vill ta bort användare med id't 4 så kommer vi försöka ta bort den 4de platsen i arrayen, vilket som inte finns...
+            //this.memberList.RemoveAt(this.getUserFromList(input).getThisMemberId());
+            int positionOfUser = this.getUserPositionFromList(input);
+            if (positionOfUser != -1) //Säkerhetsspärr, kollar om användaren ej fanns...
+            {
+                this.memberList.RemoveAt(positionOfUser); //löste genom att göra ny metod...
+                this.saveMemberList();
+
+            }else{
+                throw new Exception("User by that ID does not exist...");
+            }
+            
+        }
+
+        public void changeUserDetails(string[] newUserDetails)
+        {
+
         }
 
         public string[] getUserInfoByID(int input)

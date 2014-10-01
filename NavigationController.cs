@@ -54,13 +54,13 @@ namespace GladanCRUD
             //Lista användare
             this.view.showAllUsers();          
 
-            //Välj användarens id/nummer
+            //Välj användarens id/nummer via menyn
             int input = this.view.getUserID("Ange användarens ID, för att ta bort användaren");
 
+            //Ta bort användaren och spara listan
             this.list.deleteUserById(input);
-            //Spara listan efter att användaren är borta.
-
-            Console.ReadLine();
+            
+            this.view.confirm("Medlemmen borttagen, tryck för att fortsätta...");
         }
 
         private void changeUserDetails()
@@ -68,19 +68,23 @@ namespace GladanCRUD
             //Lista användare
             this.view.showAllUsers();
 
-            //Välj användarens id/nummer
+            //Välj användarens id/nummer via menyn
             int input = this.view.getUserID("Ange användarens ID, för att ändra användaren");
             
             // Hämta user från lista
             string[] userData = this.list.getUserInfoByID(input);
 
-            // Visa förnam
+            // redigera och visa förnam, efternam, personnummer
             string[] updatedUserData = this.view.updateAndReturnMemberData(userData);
 
+            //ta bort användarens gamla data
+            this.list.deleteUserById(input);
 
-            // Visa efternam
-
-            // Visa personnummer
+            //bygg den nya användaren
+            MemberModel editedUserToAdd = new MemberModel(updatedUserData[0],updatedUserData[1],updatedUserData[2]);
+            //lägg till nya datan            
+            this.list.addMember(editedUserToAdd);
+            //DONE! :D
 
             //getUpdatedMemberInfo(memberName, socialSecurityNumber);
 

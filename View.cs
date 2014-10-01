@@ -105,14 +105,38 @@ namespace GladanCRUD
 
         public string[] updateAndReturnMemberData(string[] userData)
         {
-            Console.Out.Write("Förnam: ");
-            SendKeys.SendWait("hello");
+            
+            string[] updatedUserData = new string[3];
+
+            //Hämtar ny data
+            Console.Out.WriteLine("Ändra användaruppgifter, lämnna tomt för att ignorera ändring");
+            Console.Out.WriteLine("Förnamn: " + userData[0]);
+            updatedUserData[0] = Console.ReadLine().Trim();
+            Console.Out.WriteLine("Efternamn: " + userData[1]);
+            updatedUserData[1] = Console.ReadLine().Trim();
+            Console.Out.WriteLine("Personnummer: " + userData[2]);
+            updatedUserData[2] = Console.ReadLine().Trim();
+            //SendKeys.SendWait("hello");
             //SendKeys
             //Console.In.Read();
             //Console.Out.Write(userData[0]);
 
-            //Console.In.ReadLine();
-            return null;
+
+            //Om datan som angivits är av längden 0 så ska den gamla datan användas.
+            if (updatedUserData[0].Length == 0)
+            {
+                updatedUserData[0] = userData[0];
+            }
+            if (updatedUserData[1].Length == 0)
+            {
+                updatedUserData[1] = userData[1];
+            }
+            if (updatedUserData[2].Length == 0)
+            {
+                updatedUserData[2] = userData[2];
+            }
+
+            return updatedUserData;
         }
     }
 }
