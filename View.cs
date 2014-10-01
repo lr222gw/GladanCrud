@@ -10,10 +10,12 @@ namespace GladanCRUD
     {
         //View
         private MemberListModel memberList;
+        private BoatListModel boatList;
 
-        public View(MemberListModel list) {
+        public View(MemberListModel memberList, BoatListModel boatList) {
 
-            this.memberList = list;
+            this.memberList = memberList;
+            this.boatList = boatList;
             
         }
         
@@ -53,6 +55,17 @@ namespace GladanCRUD
                 Console.Out.WriteLine(this.memberList.memberList[i].toString());
             }
         }
+
+        public void showAllBoats()
+        {
+            Console.Clear();
+
+            for (int i = 0; i < this.boatList.boatList.Count(); i++)
+            {
+                Console.Out.WriteLine(this.boatList.boatList[i].toString());
+            }
+        }
+
 
         public int getUserID(string message)
         {
@@ -137,6 +150,40 @@ namespace GladanCRUD
             }
 
             return updatedUserData;
+        }
+
+        public BoatType getNewBoatType()
+        {
+            Console.Out.WriteLine("Välj typ av båt");
+
+            int size = Enum.GetNames(typeof(BoatType)).Length;
+
+            for (int i = 1; i <= size; i++)
+                Console.Out.WriteLine(i + ". " + Enum.GetName(typeof(BoatType), i));
+
+            switch (getUserInput())
+	        {
+                case 1:
+                    return BoatType.Segelbåt;
+                case 2:
+                    return BoatType.Motorseglare;
+                case 3:
+                    return BoatType.Motorbåt;
+                case 4:
+                    return BoatType.Kajak_Kanot;
+                case 5:
+                    return BoatType.Övrigt;
+	        }
+
+            // Fulkod - Borde gå att returnera ett Enum baserat på konstantens värde
+            return BoatType.Övrigt;
+            
+        }
+
+        public int getNewBoatLength()
+        {
+            Console.Out.WriteLine("Ange båtens längd(m): ");
+            return getUserInput();
         }
     }
 }

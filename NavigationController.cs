@@ -11,11 +11,17 @@ namespace GladanCRUD
         private View view;
         private MemberListModel list;
 
+        // New code ================================================
+        private BoatListModel boatList;
+
+
         //constructor... 
         public NavigationController()
         {
             this.list = new MemberListModel();
-            this.view = new View(this.list);
+            this.boatList = new BoatListModel();
+
+            this.view = new View(this.list, this.boatList);
             
         }
 
@@ -90,6 +96,46 @@ namespace GladanCRUD
 
         }
 
+        public void registerBoat()
+        {
+            // Visa lista på medlem
+            this.view.showAllUsers();
+            
+            // Välj medlemsID till vilken en båt skall skapas
+            int input = this.view.getUserID("Ange medlemsID för den användare till vilken en ny båt skall registreras");
+
+            // Hämta medlem med medlemsID
+            MemberModel member = this.list.getUserFromList(input);
+            
+            // Fråga om och hämta båttyp
+            BoatType boatType = this.view.getNewBoatType();
+
+            // Fråga om och hämta längd
+
+            int boatLength = this.view.getNewBoatLength();
+
+            // Skapa båt
+            BoatModel newBoat = new BoatModel(boatType, boatLength, member);
+            
+            // Lägg till båt i listan            
+            this.boatList.addBoat(newBoat);
+            
+            // Visa bekräftelse 
+            this.view.confirm("Båten har registrerats, tryck för att fortsätta...");
+        }
+
+        // TEST för att lista båtar
+        public void removeBoat() {
+
+            // Lista alla båtar
+            this.view.showAllBoats();  
+
+            // TEST för att lista båtar 
+            Console.ReadLine();
+        }
+
+
+
 
 
         public void menuChoiceSwitch(int input)
@@ -119,8 +165,10 @@ namespace GladanCRUD
                 case 8:
                     break;
                 case 9:
+                    registerBoat();
                     break;
                 case 10:
+                    removeBoat();
                     break;
                 case 11:
                     break;
