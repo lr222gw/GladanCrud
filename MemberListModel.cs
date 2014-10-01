@@ -55,24 +55,36 @@ namespace GladanCRUD
 
         }
 
-        public void deleteUserById(int input)
+
+        private MemberModel getUserFromList(int id)
         {
-
-            for (int i = 0; i < this.memberList.Count(); i++ )
+            for (int i = 0; i < this.memberList.Count(); i++)
             {
-
-                if (this.memberList[i].getThisMemberId() == input)
-                {
-                    //this.memberList[i]
-                    this.memberList.RemoveAt(i);
-                    this.saveMemberList();
-                    break;
-                        
-                }
-
+                if (this.memberList[i].getThisMemberId() == id)
+                    return this.memberList[i];
             }
 
+            return null;
+        }
+        
+        public void deleteUserById(int input)
+        {
+            this.memberList.RemoveAt(this.getUserFromList(input).getThisMemberId());
+            this.saveMemberList();
+        }
 
+        public string[] getUserInfoByID(int input)
+        {
+            MemberModel member = this.getUserFromList(input);
+
+            string[] userInfoArr = new string[3];
+
+            userInfoArr[0] = member.getUserFirstName();
+            userInfoArr[1] = member.getUserLastName();
+            userInfoArr[2] = member.getSocialSecurityNumber();
+
+            return userInfoArr;
+            
         }
     }
 }
