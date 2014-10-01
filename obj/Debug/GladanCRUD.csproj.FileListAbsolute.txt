@@ -1,0 +1,6 @@
+C:\Users\Lowe\Desktop\Workshop2\GladanCRUD\GladanCRUD\bin\Debug\GladanCRUD.exe.config
+C:\Users\Lowe\Desktop\Workshop2\GladanCRUD\GladanCRUD\bin\Debug\GladanCRUD.exe
+C:\Users\Lowe\Desktop\Workshop2\GladanCRUD\GladanCRUD\bin\Debug\GladanCRUD.pdb
+C:\Users\Lowe\Desktop\Workshop2\GladanCRUD\GladanCRUD\obj\Debug\GladanCRUD.csprojResolveAssemblyReference.cache
+C:\Users\Lowe\Desktop\Workshop2\GladanCRUD\GladanCRUD\obj\Debug\GladanCRUD.exe
+C:\Users\Lowe\Desktop\Workshop2\GladanCRUD\GladanCRUD\obj\Debug\GladanCRUD.pdb
