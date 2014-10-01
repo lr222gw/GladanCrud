@@ -156,28 +156,12 @@ namespace GladanCRUD
         {
             Console.Out.WriteLine("Välj typ av båt");
 
-            int size = Enum.GetNames(typeof(BoatType)).Length;
+            int enumSize = Enum.GetNames(typeof(BoatType)).Length;
 
-            for (int i = 1; i <= size; i++)
+            for (int i = 1; i <= enumSize; i++)
                 Console.Out.WriteLine(i + ". " + Enum.GetName(typeof(BoatType), i));
-
-            switch (getUserInput())
-	        {
-                case 1:
-                    return BoatType.Segelbåt;
-                case 2:
-                    return BoatType.Motorseglare;
-                case 3:
-                    return BoatType.Motorbåt;
-                case 4:
-                    return BoatType.Kajak_Kanot;
-                case 5:
-                    return BoatType.Övrigt;
-	        }
-
-            // Fulkod - Borde gå att returnera ett Enum baserat på konstantens värde
-            return BoatType.Övrigt;
             
+            return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput()));
         }
 
         public int getNewBoatLength()
