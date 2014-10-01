@@ -49,7 +49,19 @@ namespace GladanCRUD
             return "ID: " + this.memberID + " Förnamn: " + this.firstName + " Efternamn: " + this.lastName + " Personnummer: " + this.socialSecurityNumber;
         }
 
+        public string getUserFirstName()
+        {
+            return this.firstName;
+        }
 
+        public string getUserLastName()
+        {
+            return this.lastName;
+        }
 
+        public string getSocialSecurityNumber()
+        {
+            return this.socialSecurityNumber;
+        }
     }
 }

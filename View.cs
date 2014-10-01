@@ -54,15 +54,22 @@ namespace GladanCRUD
             }
         }
 
-        public int deleteUserByID()
+        public int getUserID(string message)
         {
 
-            Console.Out.WriteLine("Ange användarens ID, för att ta bort användaren");
+            Console.Out.WriteLine(message);
             int input = int.Parse(Console.ReadLine());
 
             return input;
 
         }
+
+        public void getUpdatedMemberInfo(string memberName, string socialSecurityNumber)
+        {
+            
+
+        }
+
 
 
         public void showNavigation()
@@ -94,6 +101,18 @@ namespace GladanCRUD
             int refinedInput = int.Parse(input);
 
             return refinedInput;
+        }
+
+        public string[] updateAndReturnMemberData(string[] userData)
+        {
+            Console.Out.Write("Förnam: ");
+            SendKeys.SendWait("hello");
+            //SendKeys
+            //Console.In.Read();
+            //Console.Out.Write(userData[0]);
+
+            //Console.In.ReadLine();
+            return null;
         }
     }
 }

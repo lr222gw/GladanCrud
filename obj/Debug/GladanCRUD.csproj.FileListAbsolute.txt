@@ -7,3 +7,6 @@ C:\Users\Lowe\Desktop\Workshop2\GladanCRUD\GladanCRUD\obj\Debug\GladanCRUD.pdb
 D:\Mina Studier\HT2014\1DV407 - Objektorienterad analys och design\GitHub\GladanCrud\bin\Debug\GladanCRUD.exe.config
 D:\Mina Studier\HT2014\1DV407 - Objektorienterad analys och design\GitHub\GladanCrud\obj\Debug\GladanCRUD.exe
 D:\Mina Studier\HT2014\1DV407 - Objektorienterad analys och design\GitHub\GladanCrud\obj\Debug\GladanCRUD.pdb
+D:\Mina Studier\HT2014\1DV407 - Objektorienterad analys och design\GitHub\GladanCrud\obj\Debug\GladanCRUD.csprojResolveAssemblyReference.cache
+D:\Mina Studier\HT2014\1DV407 - Objektorienterad analys och design\GitHub\GladanCrud\bin\Debug\GladanCRUD.exe
+D:\Mina Studier\HT2014\1DV407 - Objektorienterad analys och design\GitHub\GladanCrud\bin\Debug\GladanCRUD.pdb

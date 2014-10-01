@@ -44,7 +44,7 @@ namespace GladanCRUD
         {
             var userInfo = this.view.getNewUserInformation();
 
-            MemberModel userToAdd = new MemberModel(userInfo[0], userInfo[1], userInfo[2]);
+            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2]));
 
             this.view.confirm("Medlemmen är tillagd, tryck för att fortsätta...");
 
@@ -55,13 +55,38 @@ namespace GladanCRUD
             this.view.showAllUsers();          
 
             //Välj användarens id/nummer
-            int input = this.view.deleteUserByID();
+            int input = this.view.getUserID("Ange användarens ID, för att ta bort användaren");
 
             this.list.deleteUserById(input);
             //Spara listan efter att användaren är borta.
 
             Console.ReadLine();
         }
+
+        private void changeUserDetails()
+        {
+            //Lista användare
+            this.view.showAllUsers();
+
+            //Välj användarens id/nummer
+            int input = this.view.getUserID("Ange användarens ID, för att ändra användaren");
+            
+            // Hämta user från lista
+            string[] userData = this.list.getUserInfoByID(input);
+
+            // Visa förnam
+            string[] updatedUserData = this.view.updateAndReturnMemberData(userData);
+
+
+            // Visa efternam
+
+            // Visa personnummer
+
+            //getUpdatedMemberInfo(memberName, socialSecurityNumber);
+
+        }
+
+
 
         public void menuChoiceSwitch(int input)
         {
@@ -77,11 +102,13 @@ namespace GladanCRUD
                 case 3:
                     break;
                 case 4:
+                    
                     break;
                 case 5:
                     removeUser();
                     break;
                 case 6:
+                    changeUserDetails();
                     break;
                 case 7:
                     break;

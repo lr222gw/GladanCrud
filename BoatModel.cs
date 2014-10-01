@@ -26,12 +26,5 @@ namespace GladanCRUD
             this.length = length;
             this.member = member;
         }
-
-
-        public void test()
-        {
-
-        }
-
     }
 }
