@@ -8,12 +8,13 @@ namespace GladanCRUD
 {
     enum BoatType
     {
-        Segelbåt,
+        Segelbåt = 1,
         Motorseglare,
         Motorbåt,
         Kajak_Kanot,
         Övrigt
     }
+    [Serializable]
     class BoatModel
     {
         private BoatType boatType;
@@ -25,6 +26,11 @@ namespace GladanCRUD
             this.boatType = boatType;
             this.length = length;
             this.member = member;
+        }
+
+        public string toString()
+        {
+            return " Båttyp: " + this.boatType + " Längd: " + this.length + " Ägare: " + this.member.getUserFirstName() + " " + this.member.getUserLastName();
         }
     }
 }

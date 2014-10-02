@@ -56,7 +56,7 @@ namespace GladanCRUD
         }
 
 
-        private MemberModel getUserFromList(int id)
+        public MemberModel getUserFromList(int id)
         {
             for (int i = 0; i < this.memberList.Count(); i++)
             {
