@@ -13,7 +13,8 @@ namespace GladanCRUD
         private string firstName;
         private string lastName;
         private string socialSecurityNumber;
-        private int memberID;        
+        private int memberID;
+        private List<BoatModel> boatList;//FIXA READONLY PÅ ALLA LISTOR!!!
 
         public MemberModel(string firstName, string lastName, string socialSecurityNumber)
         {
@@ -21,6 +22,7 @@ namespace GladanCRUD
             this.firstName = firstName;
             this.lastName = lastName;
             this.socialSecurityNumber = socialSecurityNumber;
+            this.boatList = new List<BoatModel>();
 
 
         }
@@ -33,6 +35,10 @@ namespace GladanCRUD
             for (int i = 0; i < memberList.memberList.Count(); i++ )
             {
                 idList.Add(memberList.memberList[i].getThisMemberId());
+            }
+            if (memberList.memberList.Count() == 0) {
+                //om inga användare finns i listan, så ska första angivna ID vara 1...
+                return 1;
             }
 
             return idList.Max()+1;
@@ -62,6 +68,16 @@ namespace GladanCRUD
         public string getSocialSecurityNumber()
         {
             return this.socialSecurityNumber;
+        }
+        public List<BoatModel> getBoatListOfUser()
+        {
+            return this.boatList;
+        }
+
+        public void addBoat(BoatModel boat)
+        {
+            this.boatList.Add(boat);
+            
         }
     }
 }

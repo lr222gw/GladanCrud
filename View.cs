@@ -9,13 +9,11 @@ namespace GladanCRUD
     class View
     {
         //View
-        private MemberListModel memberList;
-        private BoatListModel boatList;
+        private MemberListModel memberList;//Här anropar vi modellen, ska det va så?
 
-        public View(MemberListModel memberList, BoatListModel boatList) {
+        public View(MemberListModel memberList) {
 
-            this.memberList = memberList;
-            this.boatList = boatList;
+            this.memberList = memberList;            
             
         }
         
@@ -49,21 +47,7 @@ namespace GladanCRUD
         public void showAllUsers()
         {
             Console.Clear();
-
-            for (int i = 0; i < this.memberList.memberList.Count(); i++ )
-            {
-                Console.Out.WriteLine(this.memberList.memberList[i].toString());
-            }
-        }
-
-        public void showAllBoats()
-        {
-            Console.Clear();
-
-            for (int i = 0; i < this.boatList.boatList.Count(); i++)
-            {
-                Console.Out.WriteLine(this.boatList.boatList[i].toString());
-            }
+            showMembersOfList(this.memberList.memberList);
         }
 
 
@@ -168,6 +152,27 @@ namespace GladanCRUD
         {
             Console.Out.WriteLine("Ange båtens längd(m): ");
             return getUserInput();
+        }
+
+        public void showMembersOfList(List<MemberModel> ListToBeShown)
+        {
+            Console.Clear();
+            for (int i = 0; i < ListToBeShown.Count(); i++)
+            {
+                Console.Out.WriteLine(ListToBeShown[i].toString());
+            }
+            
+        }
+
+        internal void listMembersBoats(List<BoatModel> memberBoatList)
+        {
+            Console.Clear();
+            for (int i = 0; i < memberBoatList.Count; i++ )
+            {
+                int id = i + 1;
+                Console.WriteLine(id + ": " + memberBoatList[i].toString());
+            }
+
         }
     }
 }

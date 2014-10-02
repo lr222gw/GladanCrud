@@ -12,16 +12,16 @@ namespace GladanCRUD
         private MemberListModel list;
 
         // New code ================================================
-        private BoatListModel boatList;
+        //private BoatListModel boatList;
 
 
         //constructor... 
         public NavigationController()
         {
             this.list = new MemberListModel();
-            this.boatList = new BoatListModel();
+            //this.boatList = new BoatListModel();
 
-            this.view = new View(this.list, this.boatList);
+            this.view = new View(this.list);//, this.boatList);
             
         }
 
@@ -107,19 +107,37 @@ namespace GladanCRUD
             int boatLength = this.view.getNewBoatLength();
 
             BoatModel newBoat = new BoatModel(boatType, boatLength, member);
-            this.boatList.addBoat(newBoat);
-            
+            member.addBoat(newBoat);
+            this.list.saveMemberList();
+
             this.view.confirm("Båten har registrerats, tryck för att fortsätta...");
         }
 
-        // TEST för att lista båtar
+         //TEST för att lista båtar
         public void removeBoat() {
 
-            // Lista alla båtar
-            this.view.showAllBoats();  
+            List<MemberModel> boatOwnerList = new List<MemberModel>();
 
-            // TEST för att lista båtar 
-            Console.ReadLine();
+            //hämta alla medlemmar, kolla om de har båtar, 
+            //lista båtarna och ange index till båtarna
+            for (int i = 0; i < list.memberList.Count(); i++ )
+            {
+                if (list.memberList[i].getBoatListOfUser().Count > 0)
+                {
+                    boatOwnerList.Add(list.memberList[i]);
+                }
+            }
+            // Lista alla båtägare
+            this.view.showMembersOfList(boatOwnerList);  
+            //hämta båtägare i listan genom id
+            int memberId = this.view.getUserInput();
+            MemberModel member = list.getUserFromList(memberId);
+            this.view.listMembersBoats(member.getBoatListOfUser());
+            //Hämta användarvalet
+            int boatId = this.view.getUserInput();
+            //ta bort båt
+            member.getBoatListOfUser().RemoveAt(boatId - 1);
+
         }
 
 

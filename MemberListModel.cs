@@ -19,7 +19,7 @@ namespace GladanCRUD
         public MemberListModel()
         {
             this.memberList = new List<MemberModel>();
-            this.GetMemberList();
+            this.loadMemberList();
         }
 
         public void addMember(MemberModel member)
@@ -37,7 +37,7 @@ namespace GladanCRUD
 
         }
 
-        public void GetMemberList()
+        public void loadMemberList()
         {
             if(File.Exists(FileName)){
 
@@ -54,8 +54,7 @@ namespace GladanCRUD
             
 
         }
-
-
+        
         public MemberModel getUserFromList(int id)
         {
             for (int i = 0; i < this.memberList.Count(); i++)
@@ -102,11 +101,6 @@ namespace GladanCRUD
                 throw new Exception("User by that ID does not exist...");
             }
             
-        }
-
-        public void changeUserDetails(string[] newUserDetails)
-        {
-
         }
 
         public string[] getUserInfoByID(int input)
