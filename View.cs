@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GladanCRUD
@@ -55,9 +56,19 @@ namespace GladanCRUD
         {
 
             Console.Out.WriteLine(message);
-            int input = int.Parse(Console.ReadLine());
 
-            return input;
+            string input = Console.ReadLine();
+            if (Regex.IsMatch(input, "^[0-9]+"))
+            {
+                return int.Parse(input);
+            }
+            else
+            {
+                Console.Out.WriteLine("Måste ange ett korrekt värde");
+                getUserID(message);
+            }
+
+            return 0;
 
         }
 
@@ -89,15 +100,23 @@ namespace GladanCRUD
         }
         public int getUserInput()
         {
-            string input = Console.ReadLine();
+            //string input = Console.ReadLine();
             //if (input) //TODO: gör säkerhetskollar...
             //{
 
             //}
+            string input = Console.ReadLine();
+            if (Regex.IsMatch(input, "^[0-9]+"))
+            {
+                return int.Parse(input);
+            }
+            else
+            {
+                Console.Out.WriteLine("Måste ange ett korrekt värde");
+                getUserInput();
+            }            
 
-            int refinedInput = int.Parse(input);
-
-            return refinedInput;
+            return 0;
         }
 
         public string[] updateAndReturnMemberData(string[] userData)

@@ -13,6 +13,8 @@ namespace GladanCRUD
     class MemberListModel
     {
         public List<MemberModel> memberList;
+        public int newestId;
+        const string newestIdFile = @"NewestId.bin";
         const string FileName = @"Members.bin";
 
 
@@ -20,13 +22,39 @@ namespace GladanCRUD
         {
             this.memberList = new List<MemberModel>();
             this.loadMemberList();
+            this.loadNewestId();
         }
 
         public void addMember(MemberModel member)
         {
             this.memberList.Add(member);
+
             this.saveMemberList();
         }
+
+        public void saveNewestId()
+        {
+            Stream TestFileStream = File.Create(newestIdFile);
+            BinaryFormatter serializer = new BinaryFormatter();
+            serializer.Serialize(TestFileStream, this.newestId);
+            TestFileStream.Close();
+        }
+        public void loadNewestId()
+        {
+            if (File.Exists(newestIdFile))
+            {
+                Stream TestFileStream = File.OpenRead(newestIdFile);
+                BinaryFormatter deserializer = new BinaryFormatter();
+                this.newestId = (int)deserializer.Deserialize(TestFileStream);
+                TestFileStream.Close();
+
+            }
+            else
+            {
+                Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som id ska sparas i finns inte");
+            }
+        }
+
         public void saveMemberList()
         {
 
@@ -40,7 +68,6 @@ namespace GladanCRUD
         public void loadMemberList()
         {
             if(File.Exists(FileName)){
-
                 Stream TestFileStream = File.OpenRead(FileName);
                 BinaryFormatter deserializer = new BinaryFormatter();
                 this.memberList = (List<MemberModel>)deserializer.Deserialize(TestFileStream);                
@@ -51,7 +78,6 @@ namespace GladanCRUD
             {
                 Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som allt ska sparas i finns inte");
             }
-            
 
         }
         
@@ -61,11 +87,7 @@ namespace GladanCRUD
             {
                 if (this.memberList[i].getThisMemberId() == id){
 
-
-                    return this.memberList[i];
-                    
-                    
-                    
+                    return this.memberList[i];   
 
                 }                    
             }

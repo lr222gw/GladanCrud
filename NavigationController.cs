@@ -40,8 +40,8 @@ namespace GladanCRUD
         {
             var userInfo = this.view.getNewUserInformation();
 
-            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2]));
-
+            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.newestId +=1));
+            this.list.saveNewestId();
             this.view.confirm("Medlemmen är tillagd, tryck för att fortsätta...");
 
         }
@@ -78,9 +78,9 @@ namespace GladanCRUD
                                             // ersätta istä'llet gamla värden med de nya? istället för att ta bort.
             
             //bygg den nya användaren
-            MemberModel editedUserToAdd = new MemberModel(updatedUserData[0],updatedUserData[1],updatedUserData[2]);
+            //TODO: ÄNDRA!!!! //MemberModel editedUserToAdd = new MemberModel(updatedUserData[0],updatedUserData[1],updatedUserData[2]);
             //lägg till nya datan            
-            this.list.addMember(editedUserToAdd);
+            //TODO: ÄNDRA!!! //this.list.addMember(editedUserToAdd);
             this.view.confirm("Medlemsuppgifterna har ändrats , tryck för att fortsätta...");
             //DONE! :D
         }
