@@ -7,22 +7,14 @@ namespace GladanCRUD
 {
     class NavigationController
     {
-        //Controller
         private View view;
         private MemberListModel list;
 
-        // New code ================================================
-        //private BoatListModel boatList;
-
-
-        //constructor... 
+        // Constructor 
         public NavigationController()
         {
             this.list = new MemberListModel();
-            //this.boatList = new BoatListModel();
-
-            this.view = new View(this.list);//, this.boatList);
-            
+            this.view = new View(this.list);
         }
 
         public void doNavigate(){
@@ -41,9 +33,7 @@ namespace GladanCRUD
                     
                 }
 
-
             } while (input != 0);                        
-            
         }
 
         public void addUser()
@@ -91,9 +81,6 @@ namespace GladanCRUD
             //lägg till nya datan            
             this.list.addMember(editedUserToAdd);
             //DONE! :D
-
-            //getUpdatedMemberInfo(memberName, socialSecurityNumber);
-
         }
 
         public void registerBoat()
@@ -113,7 +100,6 @@ namespace GladanCRUD
             this.view.confirm("Båten har registrerats, tryck för att fortsätta...");
         }
 
-         //TEST för att lista båtar
         public void removeBoat() {
 
             List<MemberModel> boatOwnerList = new List<MemberModel>();
@@ -137,12 +123,7 @@ namespace GladanCRUD
             int boatId = this.view.getUserInput();
             //ta bort båt
             member.getBoatListOfUser().RemoveAt(boatId - 1);
-
         }
-
-
-
-
 
         public void menuChoiceSwitch(int input)
         {
@@ -158,7 +139,6 @@ namespace GladanCRUD
                 case 3:
                     break;
                 case 4:
-                    
                     break;
                 case 5:
                     removeUser();
@@ -179,9 +159,7 @@ namespace GladanCRUD
                 case 11:
                     break;
                 default:
-
                     break;
-
             }
         }
     }
