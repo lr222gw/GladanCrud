@@ -98,29 +98,17 @@ namespace GladanCRUD
 
         public void registerBoat()
         {
-            // Visa lista på medlem
             this.view.showAllUsers();
             
-            // Välj medlemsID till vilken en båt skall skapas
             int input = this.view.getUserID("Ange medlemsID för den användare till vilken en ny båt skall registreras");
 
-            // Hämta medlem med medlemsID
             MemberModel member = this.list.getUserFromList(input);
-            
-            // Fråga om och hämta båttyp
             BoatType boatType = this.view.getNewBoatType();
-
-            // Fråga om och hämta längd
-
             int boatLength = this.view.getNewBoatLength();
 
-            // Skapa båt
             BoatModel newBoat = new BoatModel(boatType, boatLength, member);
-            
-            // Lägg till båt i listan            
             this.boatList.addBoat(newBoat);
             
-            // Visa bekräftelse 
             this.view.confirm("Båten har registrerats, tryck för att fortsätta...");
         }
 

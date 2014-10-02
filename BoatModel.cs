@@ -30,7 +30,7 @@ namespace GladanCRUD
 
         public string toString()
         {
-            return " Båttyp: " + this.boatType + " Längd: " + this.length + " Ägare: " + this.member; // Verkar referera till NULL
+            return " Båttyp: " + this.boatType + " Längd: " + this.length + " Ägare: " + this.member.getUserFirstName() + " " + this.member.getUserLastName();
         }
     }
 }
