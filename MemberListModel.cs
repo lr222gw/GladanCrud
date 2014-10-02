@@ -116,5 +116,17 @@ namespace GladanCRUD
             return userInfoArr;
             
         }
+        public int[] getBoatInfoByID(MemberModel boatOwner, int boatId)
+        {
+
+            BoatModel boat = boatOwner.getBoatListOfUser()[boatId];
+            int[] boatInfoArr = new int[2];
+            
+            boatInfoArr[0] = boat.getBoatType();
+            boatInfoArr[1] = boat.getBoatLength();
+
+            return boatInfoArr;
+
+        }
     }
 }

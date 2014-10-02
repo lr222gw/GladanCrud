@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GladanCRUD
 {
-    enum BoatType
+    public enum BoatType
     {
         Segelbåt = 1,
         Motorseglare,
@@ -31,6 +31,21 @@ namespace GladanCRUD
         public string toString()
         {
             return " Båttyp: " + this.boatType + " Längd: " + this.length; // +" Ägare: " + this.member.getUserFirstName() + " " + this.member.getUserLastName();
+        }
+
+        public int getBoatType()
+        {
+            return (int)this.boatType;
+        }
+
+        public int getBoatLength()
+        {
+            return this.length;
+        }
+        public void setNewBoatDetails(int[] newBoatData)
+        {
+            this.boatType = (BoatType)newBoatData[0];
+            this.length = newBoatData[1];
         }
     }
 }

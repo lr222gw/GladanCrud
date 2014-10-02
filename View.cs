@@ -77,7 +77,7 @@ namespace GladanCRUD
             Console.WriteLine("1. Registrera medlem");
             Console.WriteLine("2. Lista medlemmar - Kompakt");
             Console.WriteLine("3. Lista medlemmar - Fullständig");
-            Console.WriteLine("4. Skapa en ny medlem");
+            Console.WriteLine("4. ??????????????????Skapa en ny medlem????????????");
             Console.WriteLine("5. Ta bort medlem");
             Console.WriteLine("6. Ändra medlem");
             Console.WriteLine("8. Visa medlem");
@@ -116,27 +116,79 @@ namespace GladanCRUD
             //SendKeys.SendWait("hello");
             //SendKeys
             //Console.In.Read();
-            //Console.Out.Write(userData[0]);
-
-
+            //Console.Out.Write(userData[0]);            
             //Om datan som angivits är av längden 0 så ska den gamla datan användas.
-            if (updatedUserData[0].Length == 0)
-            {
-                updatedUserData[0] = userData[0];
-            }
-            if (updatedUserData[1].Length == 0)
-            {
-                updatedUserData[1] = userData[1];
-            }
-            if (updatedUserData[2].Length == 0)
-            {
-                updatedUserData[2] = userData[2];
-            }
-
+            updatedUserData = validateIfInputIsEmptySTRING(updatedUserData, userData);
             return updatedUserData;
         }
+        public int[] updateAndReturnBoatData(int[] boatData)
+        {
 
-        public BoatType getNewBoatType()
+            int[] updatedBoatData = new int[2];
+
+            //Hämtar ny data
+            Console.Out.WriteLine("Ändra båtens uppgifter, lämnna tomt för att ignorera ändring");
+
+            //Hämtar ny båttyp
+            Console.Out.WriteLine("Båttyp (ange siffra) \nDin nuvarande typ är:" + (BoatType)boatData[0] + "\n");
+            presentListOfBoatTypes();
+            string typeInput = Console.ReadLine();
+            if (typeInput == "")
+            {
+                updatedBoatData[0] = -1;
+            }
+            else { updatedBoatData[0] = int.Parse(typeInput); }
+
+            //Hämtar ny båtlängd
+            Console.Out.WriteLine("Längd: " + boatData[1]);
+            string lengthInput = Console.ReadLine();
+            if (lengthInput == "")
+            {
+                updatedBoatData[1] = -1;
+            }
+            else { updatedBoatData[1] = int.Parse(lengthInput); }
+
+            //kontrollerar input
+            updatedBoatData = validateIfInputIsEmptyINT(updatedBoatData, boatData);
+            //returnerar
+            return updatedBoatData;
+        }
+        
+        public string[] validateIfInputIsEmptySTRING (string[] updatedData, string[] dataToCheckAgainst)
+        {
+           
+            if (updatedData[0].Length == 0)
+            {
+                updatedData[0] = dataToCheckAgainst[0];
+            }
+            if (updatedData[1].Length == 0)
+            {
+                updatedData[1] = dataToCheckAgainst[1];
+            }
+            if (updatedData[2].Length == 0)
+            {
+                updatedData[2] = dataToCheckAgainst[2];
+            }
+            
+            return updatedData;
+        }
+        public int[] validateIfInputIsEmptyINT(int[] updatedData, int[] dataToCheckAgainst)
+        {
+
+            if (updatedData[0] == -1)
+            {
+                updatedData[0] = dataToCheckAgainst[0];
+            }
+            if (updatedData[1] == -1)
+            {
+                updatedData[1] = dataToCheckAgainst[1];
+            }
+
+
+            return updatedData;
+        }
+
+        public void presentListOfBoatTypes()
         {
             Console.Out.WriteLine("Välj typ av båt");
 
@@ -144,6 +196,11 @@ namespace GladanCRUD
 
             for (int i = 1; i <= enumSize; i++)
                 Console.Out.WriteLine(i + ". " + Enum.GetName(typeof(BoatType), i));
+        }
+
+        public BoatType getNewBoatType()
+        {
+            presentListOfBoatTypes();
             
             return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput()));
         }
@@ -169,8 +226,8 @@ namespace GladanCRUD
             Console.Clear();
             for (int i = 0; i < memberBoatList.Count; i++ )
             {
-                int id = i + 1;
-                Console.WriteLine(id + ": " + memberBoatList[i].toString());
+                
+                Console.WriteLine(i + ": " + memberBoatList[i].toString());
             }
 
         }

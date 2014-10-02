@@ -26,7 +26,7 @@ namespace GladanCRUD
                 this.view.showNavigation();
 
                 input = this.view.getUserInput();
-                if (input < 11 && input > -1)
+                if (input <= 11 && input > -1)
                 {
                     //Använd valet, och utför valet. (switch)
                     menuChoiceSwitch(input);
@@ -74,12 +74,14 @@ namespace GladanCRUD
             string[] updatedUserData = this.view.updateAndReturnMemberData(userData);
 
             //ta bort användarens gamla data
-            this.list.deleteUserById(input);
-
+            this.list.deleteUserById(input); //TODO: Obs MedlemsId/nummer blir nytt, ska det vara så? 
+                                            // ersätta istä'llet gamla värden med de nya? istället för att ta bort.
+            
             //bygg den nya användaren
             MemberModel editedUserToAdd = new MemberModel(updatedUserData[0],updatedUserData[1],updatedUserData[2]);
             //lägg till nya datan            
             this.list.addMember(editedUserToAdd);
+            this.view.confirm("Medlemsuppgifterna har ändrats , tryck för att fortsätta...");
             //DONE! :D
         }
 
@@ -100,29 +102,46 @@ namespace GladanCRUD
             this.view.confirm("Båten har registrerats, tryck för att fortsätta...");
         }
 
-        public void removeBoat() {
-
+        public List<MemberModel> getBoatOwnerList()
+        {
             List<MemberModel> boatOwnerList = new List<MemberModel>();
 
             //hämta alla medlemmar, kolla om de har båtar, 
             //lista båtarna och ange index till båtarna
-            for (int i = 0; i < list.memberList.Count(); i++ )
+            for (int i = 0; i < list.memberList.Count(); i++)
             {
                 if (list.memberList[i].getBoatListOfUser().Count > 0)
                 {
                     boatOwnerList.Add(list.memberList[i]);
                 }
             }
+
+            return boatOwnerList;
+        }
+
+        public MemberModel getBoatOwnerIdFromUser()
+        {
             // Lista alla båtägare
-            this.view.showMembersOfList(boatOwnerList);  
+            List<MemberModel> boatOwnerList = getBoatOwnerList();
             //hämta båtägare i listan genom id
+            this.view.showMembersOfList(boatOwnerList);
             int memberId = this.view.getUserInput();
-            MemberModel member = list.getUserFromList(memberId);
-            this.view.listMembersBoats(member.getBoatListOfUser());
+
+            MemberModel member = list.getUserFromList(memberId);            
             //Hämta användarvalet
-            int boatId = this.view.getUserInput();
+
+            return member;
+        }
+
+        public void removeBoat() {
+
+            MemberModel member = getBoatOwnerIdFromUser();
+            this.view.listMembersBoats(member.getBoatListOfUser());
+            int boatId = this.view.getUserInput();            
             //ta bort båt
-            member.getBoatListOfUser().RemoveAt(boatId - 1);
+            member.getBoatListOfUser().RemoveAt(boatId);
+            //spara
+            list.saveMemberList();
         }
 
         public void menuChoiceSwitch(int input)
@@ -157,10 +176,25 @@ namespace GladanCRUD
                     removeBoat();
                     break;
                 case 11:
+                    changeBoatDetails();
                     break;
                 default:
                     break;
             }
+        }
+
+        private void changeBoatDetails()
+        {
+            // hämta båtR hoss användare som har bå¨tar ; anv'änd gamla kod
+            MemberModel member = getBoatOwnerIdFromUser();
+            this.view.listMembersBoats(member.getBoatListOfUser());
+            int boatId = this.view.getUserInput();
+            int[] boatInfoArr = this.list.getBoatInfoByID(member, boatId);
+            boatInfoArr = this.view.updateAndReturnBoatData(boatInfoArr);
+
+            member.getBoatListOfUser()[boatId].setNewBoatDetails(boatInfoArr);
+            list.saveMemberList();
+            view.confirm("Båtdetaljerna har ändrats");
         }
     }
 }
