@@ -11,23 +11,16 @@ namespace GladanCRUD
     {
         private BoatType boatType;
         private int length;
-        //private MemberModel member;
 
-        public BoatModel(BoatType boatType, int length)//, MemberModel member)
+        public BoatModel(BoatType boatType, int length)
         {
             this.boatType = boatType;
             this.length = length;
-            //this.member = member;
         }
      
-        public int getBoatType()
+        public BoatType getBoatType()
         {
-            return (int)this.boatType;
-        }
-
-        public string getBoatTypeString()
-        {
-            return this.boatType.ToString();
+            return this.boatType;
         }
 
         public int getBoatLength()
@@ -35,7 +28,6 @@ namespace GladanCRUD
             return this.length;
         }
 
-        // Hitflyttad från MemberList
         public int[] getBoatInfo()
         {
             int[] boatData = new int[2];

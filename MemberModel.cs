@@ -44,30 +44,7 @@ namespace GladanCRUD
             return this.socialSecurityNumber;
         }
 
-        public void updateMember(string[] newData)
-        {
-            this.firstName = newData[0];
-            this.lastName = newData[1];
-            this.socialSecurityNumber = newData[2];
-        }
-
-        public List<BoatModel> getBoatListOfUser()
-        {
-            return this.boatList;
-        }
-
-        public void addBoat(BoatModel boat)
-        {
-            this.boatList.Add(boat);
-        }
-
-        public BoatModel getBoatByIndex(int index)
-        {
-            return this.boatList[index];
-        }
-
-        // Hitflyttad från MemberList
-        public string[] getUserInfo() 
+        public string[] getUserInfo()
         {
             string[] userInfoArr = new string[3];
 
@@ -76,6 +53,28 @@ namespace GladanCRUD
             userInfoArr[2] = this.socialSecurityNumber;
 
             return userInfoArr;
+        }
+
+        public void updateMember(string[] newData)
+        {
+            this.firstName = newData[0];
+            this.lastName = newData[1];
+            this.socialSecurityNumber = newData[2];
+        }
+
+        public void addBoat(BoatModel boat)
+        {
+            this.boatList.Add(boat);
+        }
+
+        public List<BoatModel> getBoatListOfUser()
+        {
+            return this.boatList;
+        }
+
+        public BoatModel getBoatByIndex(int index)
+        {
+            return this.boatList[index];
         }
     }
 }

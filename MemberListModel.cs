@@ -10,16 +10,13 @@ namespace GladanCRUD
 {
     class MemberListModel
     {
-        public List<MemberModel> memberList;
-        //public int newestId;
-        //const string newestIdFile = @"NewestId.bin";
+        public List<MemberModel> memberList;                                                        //public int newestId; //const string newestIdFile = @"NewestId.bin";
         const string FileName = @"Members.bin";
 
         public MemberListModel()
         {
             this.memberList = new List<MemberModel>();
-            this.loadMemberList();
-            //this.loadNewestId();
+            this.loadMemberList();                                                                  //this.loadNewestId();
         }
 
         public void addMember(MemberModel member)
@@ -28,54 +25,6 @@ namespace GladanCRUD
             this.saveMemberList();
         }
 
-        public void saveMemberList()
-        {
-            Stream TestFileStream = File.Create(FileName);
-            BinaryFormatter serializer = new BinaryFormatter();
-            serializer.Serialize(TestFileStream, this.memberList);
-            TestFileStream.Close();            
-        }
-
-        public void loadMemberList()
-        {
-            if(File.Exists(FileName))
-            {
-                Stream TestFileStream = File.OpenRead(FileName);
-                BinaryFormatter deserializer = new BinaryFormatter();
-                this.memberList = (List<MemberModel>)deserializer.Deserialize(TestFileStream);                
-                TestFileStream.Close();
-            }
-            else
-            {
-                Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som allt ska sparas i finns inte");
-            }
-        }
-                
-        public MemberModel getUserFromList(int memberId)
-        {
-            foreach(MemberModel member in memberList)
-                if (member.getThisMemberId() == memberId)
-                    return member;
-
-            return null;
-        }
-
-        // NEW ------------------------------------------
-        public void deleteUserById(int memberId)
-        {
-            foreach(MemberModel member in memberList)
-            {
-                if (member.getThisMemberId() == memberId)
-                {
-                    memberList.RemoveAt(memberList.IndexOf(member));
-                    break;
-                }
-            }
-
-            saveMemberList();
-        }
-
-        // NEW ------------------------------------------
         public int getUniqueId()
         {
             int highestId = 0;
@@ -85,6 +34,50 @@ namespace GladanCRUD
                     highestId = member.getThisMemberId();
 
             return highestId + 1;
+        }
+
+        public MemberModel getUserFromList(int memberId)
+        {
+            foreach (MemberModel member in memberList)
+                if (member.getThisMemberId() == memberId)
+                    return member;
+
+            return null;
+        }
+
+        public void deleteUserById(int memberId)
+        {
+            foreach (MemberModel member in memberList)
+                if (member.getThisMemberId() == memberId)
+                {
+                    memberList.RemoveAt(memberList.IndexOf(member));
+                    break;
+                }
+
+            saveMemberList();
+        }
+
+        public void loadMemberList()
+        {
+            if (File.Exists(FileName))
+            {
+                Stream TestFileStream = File.OpenRead(FileName);
+                BinaryFormatter deserializer = new BinaryFormatter();
+                this.memberList = (List<MemberModel>)deserializer.Deserialize(TestFileStream);
+                TestFileStream.Close();
+            }
+            else
+            {
+                Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som allt ska sparas i finns inte"); // REMOVE
+            }
+        }
+
+        public void saveMemberList()
+        {
+            Stream TestFileStream = File.Create(FileName);
+            BinaryFormatter serializer = new BinaryFormatter();
+            serializer.Serialize(TestFileStream, this.memberList);
+            TestFileStream.Close();
         }
     }
 }

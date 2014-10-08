@@ -48,8 +48,8 @@ namespace GladanCRUD
             string[] userInfo = this.view.getNewUserInformation();
 
             // Skapa ny medlem och lägg till i MemberList
-            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.getUniqueId()));                   // list.newestId +=1));
-                                                                                                                               //this.list.saveNewestId();
+            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.getUniqueId()));                   // list.newestId +=1)); //this.list.saveNewestId();
+
             // Visa bekräftelse
             this.view.confirm("Medlemmen är tillagd, tryck 'ENTER' för att fortsätta...");
         }

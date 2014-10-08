@@ -75,7 +75,7 @@ namespace GladanCRUD
                         if (j > 0)
                             Console.Out.Write("                                                  ");
 
-                        Console.Out.WriteLine("{0,-17} {1,3}", boatList[j].getBoatTypeString(), boatList[j].getBoatLength());
+                        Console.Out.WriteLine("{0,-17} {1,3}", boatList[j].getBoatType().ToString(), boatList[j].getBoatLength());
                     }
                 }
                 else
@@ -118,7 +118,7 @@ namespace GladanCRUD
             int listSize = boatList.Count();
 
             for (int i = 0; i < listSize; i++)
-                Console.Out.WriteLine("{0,3}     {1,-12}   {2,6}", i + 1, boatList[i].getBoatTypeString(), boatList[i].getBoatLength());
+                Console.Out.WriteLine("{0,3}     {1,-12}   {2,6}", i + 1, boatList[i].getBoatType().ToString(), boatList[i].getBoatLength());
 
             Console.Out.WriteLine("==============================");
         }
