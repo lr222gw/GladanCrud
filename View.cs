@@ -118,7 +118,7 @@ namespace GladanCRUD
             int listSize = boatList.Count();
 
             for (int i = 0; i < listSize; i++)
-                Console.Out.WriteLine("{0,3}     {1,-12}   {2,6}", i, boatList[i].getBoatTypeString(), boatList[i].getBoatLength());
+                Console.Out.WriteLine("{0,3}     {1,-12}   {2,6}", i + 1, boatList[i].getBoatTypeString(), boatList[i].getBoatLength());
 
             Console.Out.WriteLine("==============================");
         }
@@ -175,7 +175,6 @@ namespace GladanCRUD
 
             Console.Out.Write("Ange Personnummer(ÅÅMMDD-XXXX): ");
             userDataArr[2] = getUserInput("^\\d{6}-\\d{4}$");
-                       
             
             //userDataArr[2] = Console.ReadLine();
 
@@ -315,42 +314,6 @@ namespace GladanCRUD
             Console.ReadLine();
         }
 
-        //public void showMembersOfList(List<MemberModel> ListToBeShown)
-        //{
-        //    Console.Clear();
-        //    for (int i = 0; i < ListToBeShown.Count(); i++)
-        //    {
-        //        Console.Out.WriteLine(ListToBeShown[i].toString());
-        //    }
-        //}
-
-        //internal void listMembersBoats(List<BoatModel> memberBoatList)
-        //{
-        //    Console.Clear();
-        //    for (int i = 0; i < memberBoatList.Count; i++)
-        //    {
-        //        Console.WriteLine(i + ": " + memberBoatList[i].toString());
-        //    }
-
-        //}
-        //public int getUserID(string message) // Sammanfoga med getUserInput eller generalisera???
-        //{
-        //    Console.Out.Write(message);
-        //    string input = Console.ReadLine();
-
-        //    if (Regex.IsMatch(input, "^[0-9]+"))
-        //    {
-        //        return int.Parse(input);
-        //    }
-        //    else
-        //    {
-        //        Console.Out.WriteLine("Måste ange ett korrekt värde");
-        //        getUserID(message);
-        //    }
-
-        //    return 0;
-        //}
-
         public int getUserInput()
         {
             //string input = Console.ReadLine();
@@ -371,9 +334,45 @@ namespace GladanCRUD
 
             return 0;
         }
-
-        //public void getUpdatedMemberInfo(string memberName, string socialSecurityNumber)
-        //{
-        //}
     }
 }
+
+//public void getUpdatedMemberInfo(string memberName, string socialSecurityNumber)
+//{
+//}
+
+//public void showMembersOfList(List<MemberModel> ListToBeShown)
+//{
+//    Console.Clear();
+//    for (int i = 0; i < ListToBeShown.Count(); i++)
+//    {
+//        Console.Out.WriteLine(ListToBeShown[i].toString());
+//    }
+//}
+
+//internal void listMembersBoats(List<BoatModel> memberBoatList)
+//{
+//    Console.Clear();
+//    for (int i = 0; i < memberBoatList.Count; i++)
+//    {
+//        Console.WriteLine(i + ": " + memberBoatList[i].toString());
+//    }
+
+//}
+//public int getUserID(string message) // Sammanfoga med getUserInput eller generalisera???
+//{
+//    Console.Out.Write(message);
+//    string input = Console.ReadLine();
+
+//    if (Regex.IsMatch(input, "^[0-9]+"))
+//    {
+//        return int.Parse(input);
+//    }
+//    else
+//    {
+//        Console.Out.WriteLine("Måste ange ett korrekt värde");
+//        getUserID(message);
+//    }
+
+//    return 0;
+//}

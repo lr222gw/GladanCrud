@@ -8,49 +8,24 @@ using System.IO;
 
 namespace GladanCRUD
 {
-    //[Serializable]
-    
     class MemberListModel
     {
         public List<MemberModel> memberList;
-        public int newestId;
-        const string newestIdFile = @"NewestId.bin";
+        //public int newestId;
+        //const string newestIdFile = @"NewestId.bin";
         const string FileName = @"Members.bin";
 
         public MemberListModel()
         {
             this.memberList = new List<MemberModel>();
             this.loadMemberList();
-            this.loadNewestId();
+            //this.loadNewestId();
         }
 
         public void addMember(MemberModel member)
         {
             this.memberList.Add(member);
-
             this.saveMemberList();
-        }
-
-        public void saveNewestId()
-        {
-            Stream TestFileStream = File.Create(newestIdFile);
-            BinaryFormatter serializer = new BinaryFormatter();
-            serializer.Serialize(TestFileStream, this.newestId);
-            TestFileStream.Close();
-        }
-        public void loadNewestId()
-        {
-            if (File.Exists(newestIdFile))
-            {
-                Stream TestFileStream = File.OpenRead(newestIdFile);
-                BinaryFormatter deserializer = new BinaryFormatter();
-                this.newestId = (int)deserializer.Deserialize(TestFileStream);
-                TestFileStream.Close();
-            }
-            else
-            {
-                Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som id ska sparas i finns inte");
-            }
         }
 
         public void saveMemberList()
@@ -74,82 +49,119 @@ namespace GladanCRUD
             {
                 Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som allt ska sparas i finns inte");
             }
-
         }
-        
-        public MemberModel getUserFromList(int id)
+                
+        public MemberModel getUserFromList(int memberId)
         {
-            for (int i = 0; i < this.memberList.Count(); i++)
-            {
-                if (this.memberList[i].getThisMemberId() == id)
-                {
-                    return this.memberList[i];   
-                }                    
-            }
+            foreach(MemberModel member in memberList)
+                if (member.getThisMemberId() == memberId)
+                    return member;
 
             return null;
         }
 
-        private int getUserPositionFromList(int id)
+        // NEW ------------------------------------------
+        public void deleteUserById(int memberId)
         {
-            for (int i = 0; i < this.memberList.Count(); i++)
+            foreach(MemberModel member in memberList)
             {
-                if (this.memberList[i].getThisMemberId() == id)
+                if (member.getThisMemberId() == memberId)
                 {
-                    return i;
+                    memberList.RemoveAt(memberList.IndexOf(member));
+                    break;
                 }
             }
 
-            return -1;
+            saveMemberList();
         }
-        
-        public void deleteUserById(int input)
+
+        // NEW ------------------------------------------
+        public int getUniqueId()
         {
-            //Denna måste fixas, RemoveAt baserar sig på arrayensplats, (array börjar på 0...) 
-            //Vi anger IDt istället, vi räknar id från 1... så användare med ID 4 ligger på plats 3 i arrayen. 
-            //Om vi anger att vi vill ta bort användare med id't 4 så kommer vi försöka ta bort den 4de platsen i arrayen, vilket som inte finns...
-            //this.memberList.RemoveAt(this.getUserFromList(input).getThisMemberId());
-            int positionOfUser = this.getUserPositionFromList(input);
-            if (positionOfUser != -1) //Säkerhetsspärr, kollar om användaren ej fanns...
-            {
-                this.memberList.RemoveAt(positionOfUser); //löste genom att göra ny metod...
-                this.saveMemberList();
+            int highestId = 0;
 
-            }else{
-                throw new Exception("User by that ID does not exist...");
-            }
+            foreach (MemberModel member in memberList)
+                if (member.getThisMemberId() > highestId)
+                    highestId = member.getThisMemberId();
+
+            return highestId + 1;
         }
-
-        public string[] getUserInfoByID(int input)
-        {
-            MemberModel member = this.getUserFromList(input);
-
-            string[] userInfoArr = new string[3];
-
-            userInfoArr[0] = member.getUserFirstName();
-            userInfoArr[1] = member.getUserLastName();
-            userInfoArr[2] = member.getSocialSecurityNumber();
-
-            return userInfoArr;
-        }
-        public int[] getBoatInfoByID(MemberModel boatOwner, int boatId)
-        {
-            BoatModel boat = boatOwner.getBoatListOfUser()[boatId];
-            int[] boatInfoArr = new int[2];
-            
-            boatInfoArr[0] = boat.getBoatType();
-            boatInfoArr[1] = boat.getBoatLength();
-
-            return boatInfoArr;
-        }
-
-        //public bool memberExists(int memberId)
-        //{
-        //    foreach (MemberModel member in memberList)
-        //        if (member.getThisMemberId() == memberId)
-        //            return true;
-
-        //    return false;
-        //}
     }
 }
+
+
+//public void saveNewestId()
+//{
+//    Stream TestFileStream = File.Create(newestIdFile);
+//    BinaryFormatter serializer = new BinaryFormatter();
+//    serializer.Serialize(TestFileStream, this.newestId);
+//    TestFileStream.Close();
+//}
+//public void loadNewestId()
+//{
+//    if (File.Exists(newestIdFile))
+//    {
+//        Stream TestFileStream = File.OpenRead(newestIdFile);
+//        BinaryFormatter deserializer = new BinaryFormatter();
+//        this.newestId = (int)deserializer.Deserialize(TestFileStream);
+//        TestFileStream.Close();
+//    }
+//    else
+//    {
+//        Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som id ska sparas i finns inte");
+//    }
+//}
+
+
+//private int getUserPositionFromList(int id)
+//{
+//    for (int i = 0; i < this.memberList.Count(); i++)
+//    {
+//        if (this.memberList[i].getThisMemberId() == id)
+//        {
+//            return i;
+//        }
+//    }
+
+//    return -1;
+//}
+
+//public void deleteUserById(int input)
+//{
+//    //Denna måste fixas, RemoveAt baserar sig på arrayensplats, (array börjar på 0...) 
+//    //Vi anger IDt istället, vi räknar id från 1... så användare med ID 4 ligger på plats 3 i arrayen. 
+//    //Om vi anger att vi vill ta bort användare med id't 4 så kommer vi försöka ta bort den 4de platsen i arrayen, vilket som inte finns...
+//    //this.memberList.RemoveAt(this.getUserFromList(input).getThisMemberId());
+//    int positionOfUser = this.getUserPositionFromList(input);
+//    if (positionOfUser != -1) //Säkerhetsspärr, kollar om användaren ej fanns...
+//    {
+//        this.memberList.RemoveAt(positionOfUser); //löste genom att göra ny metod...
+//        this.saveMemberList();
+
+//    }else{
+//        throw new Exception("User by that ID does not exist...");
+//    }
+//}
+
+//public string[] getUserInfoByID(int input)                    // Borde inte denna ligga i MemberModel
+//{
+//    MemberModel member = this.getUserFromList(input);
+
+//    string[] userInfoArr = new string[3];
+
+//    userInfoArr[0] = member.getUserFirstName();
+//    userInfoArr[1] = member.getUserLastName();
+//    userInfoArr[2] = member.getSocialSecurityNumber();
+
+//    return userInfoArr;
+//}
+//public int[] getBoatInfoByID(MemberModel boatOwner, int boatId) // Borde inte denna ligga i MemberModel
+//{
+//    BoatModel boat = boatOwner.getBoatListOfUser()[boatId];
+//    int[] boatInfoArr = new int[2];
+
+//    boatInfoArr[0] = boat.getBoatType();
+//    boatInfoArr[1] = boat.getBoatLength();
+
+//    return boatInfoArr;
+//}

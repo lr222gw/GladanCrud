@@ -41,16 +41,20 @@ namespace GladanCRUD
             } while (true);                        
         }
 
+        // Skapa ny medlem och lägg till i MemberList
         public void addUser()
         {
-            var userInfo = this.view.getNewUserInformation();
+            // Hämta medlemsdata genom inmatning från användaren
+            string[] userInfo = this.view.getNewUserInformation();
 
-            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.newestId +=1));
-            this.list.saveNewestId();
+            // Skapa ny medlem och lägg till i MemberList
+            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.getUniqueId()));                   // list.newestId +=1));
+                                                                                                                               //this.list.saveNewestId();
+            // Visa bekräftelse
             this.view.confirm("Medlemmen är tillagd, tryck 'ENTER' för att fortsätta...");
-
         }
 
+        // Hämta giltig inmatning från användaren
         private int getUserChoiceOfMember(List<MemberModel> membersList)
         {
             int input;
@@ -67,73 +71,83 @@ namespace GladanCRUD
             } while (true);
         }
 
+        // Ta bort en medlem
         private void removeUser()
         {
             // Lista användare
             this.view.showMembersList(this.list.memberList, "Ta bort medlem");
           
-            //Hämta användarens val och ta bort användaren
+            // Hämta användarens val och ta bort användaren
             this.list.deleteUserById(getUserChoiceOfMember(this.list.memberList));
             
+            // Visa bekräftelse
             this.view.confirm("Medlemmen borttagen, tryck 'ENTER' för att fortsätta...");
         }
 
+        // Uppdatera en medlems uppgifter
         private void changeUserDetails()
         {
-            //Lista användare
+            // Lista användare
             this.view.showMembersList(this.list.memberList, "Ändra medlemsuppgifter");
 
-            //Välj användarens id/nummer via menyn
+            // Välj användarens id/nummer via menyn
             int input = getUserChoiceOfMember(this.list.memberList);
             
-            // Hämta user från lista
-            string[] userData = this.list.getUserInfoByID(input);
+            // Hämta member baserat på Id
+            MemberModel member = list.getUserFromList(input);
 
-            // redigera och visa förnam, efternam, personnummer
-            string[] updatedUserData = this.view.updateAndReturnMemberData(userData);
+            // Hämta medlemsdata från MemberList
+            string[] memberData = member.getUserInfo();
 
-            //ta bort användarens gamla data
-            this.list.deleteUserById(input); //TODO: Obs MedlemsId/nummer blir nytt, ska det vara så? 
-                                            // ersätta istä'llet gamla värden med de nya? istället för att ta bort.
-            
-            //bygg den nya användaren
-            //TODO: ÄNDRA!!!! //MemberModel editedUserToAdd = new MemberModel(updatedUserData[0],updatedUserData[1],updatedUserData[2]);
-            //lägg till nya datan            
-            //TODO: ÄNDRA!!! //this.list.addMember(editedUserToAdd);
-            this.view.confirm("Medlemsuppgifterna har ändrats, tryck 'ENTER' för att fortsätta...");
-            //DONE! :D
+            // Redigera och visa förnam, efternam, personnummer
+            memberData = this.view.updateAndReturnMemberData(memberData);
+
+            // Uppdatera medlem med ny uppgifter
+            member.updateMember(memberData);
+
+            // Spara MemberList
+            list.saveMemberList();
+
+            // Visa bekräftelse
+            this.view.confirm("Medlemsuppgifterna har uppdaterats, tryck 'ENTER' för att fortsätta...");
         }
 
+        // Registrera ny båt
         public void registerBoat()
         {
+            // Visa lista på medlemmar
             this.view.showMembersList(this.list.memberList, "Registrera båt");
 
+            // Hämta giltigt id genom inamtning av användaren
             int input = getUserChoiceOfMember(this.list.memberList);
 
+            // Hämta medlem från MemberList
             MemberModel member = this.list.getUserFromList(input);
 
+            // Hämta inmatat värde för båttyp och båtlängd
             BoatType boatType = this.view.getNewBoatType();
             int boatLength = this.view.getNewBoatLength();
 
-            BoatModel newBoat = new BoatModel(boatType, boatLength, member);
-            member.addBoat(newBoat);
+            // Skapa ny båt och lägg till i BoatList
+            member.addBoat(new BoatModel(boatType, boatLength));
+            
+            // Spara MemberList
             this.list.saveMemberList();
 
+            // Visa bekräftelse
             this.view.confirm("Båten har registrerats, tryck 'ENTER' för att fortsätta...");
         }
 
+        // Skapa lista innehållandes endast båtägare
         public List<MemberModel> getBoatOwnerList()
         {
             List<MemberModel> boatOwnerList = new List<MemberModel>();
 
-            //hämta alla medlemmar, kolla om de har båtar, 
-            //lista båtarna och ange index till båtarna
+            // Undersök vilka medlemmar som har båtar
             for (int i = 0; i < list.memberList.Count(); i++)
             {
                 if (list.memberList[i].getBoatListOfUser().Count > 0)
-                {
                     boatOwnerList.Add(list.memberList[i]);
-                }
             }
 
             return boatOwnerList;
@@ -150,6 +164,7 @@ namespace GladanCRUD
             // Hämta användarens val av båtägare
             int input = getUserChoiceOfMember(boatOwnerList);
 
+            // Hämta medlem från MemberList
             MemberModel member = list.getUserFromList(input);            
 
             return member;
@@ -165,14 +180,14 @@ namespace GladanCRUD
             {
                 boatId = this.view.getUserChoice("Ange BåtID: ");
 
-                if (boatId >= 0 && boatId <= boatListSize - 1)
+                if (boatId >= 1 && boatId <= boatListSize)
                     return boatId;
 
                 this.view.showIllegalInputMessage();
             } while (true);
         }
         
-
+        // Ta bort båt
         public void removeBoat() {
 
             // Hämta vilken båtägare det gäller
@@ -182,16 +197,19 @@ namespace GladanCRUD
             this.view.showMemberBoatsList(member.getBoatListOfUser());
 
             // Hämta användarens val av båt
-            int boatId = getSpecificBoatId(member.getBoatListOfUser());
+            int rowId = getSpecificBoatId(member.getBoatListOfUser());
 
-            //ta bort båt
-            member.getBoatListOfUser().RemoveAt(boatId);
-            //spara
-            list.saveMemberList();
+            // Ta bort båt
+            member.getBoatListOfUser().RemoveAt(rowId - 1);
+            
+            // Spara MemberList
+            this.list.saveMemberList();
 
+            // Visa bekräftelse
             this.view.confirm("Båten har tagits bort, tryck 'ENTER' för att fortsätta...");
         }
 
+        // Uppdatera båtinformation
         private void changeBoatDetails()
         {
             // Hämta vilken båtägare det gäller
@@ -201,19 +219,28 @@ namespace GladanCRUD
             this.view.showMemberBoatsList(member.getBoatListOfUser());
 
             // Hämta användarens val av båt
-            int boatId = getSpecificBoatId(member.getBoatListOfUser());
+            int rowId = getSpecificBoatId(member.getBoatListOfUser());
             
-            int[] boatInfoArr = this.list.getBoatInfoByID(member, boatId);
+            // Hämta båt baserat på radId
+            BoatModel boat = member.getBoatByIndex(rowId - 1);
 
+            // Hämta befintliga uppgifter
+            int[] boatInfoArr = boat.getBoatInfo();
+
+            // Redigera och visa båttyp och längd
             boatInfoArr = this.view.updateAndReturnBoatData(boatInfoArr);
+                
+            // Uppdatera båtinformation
+            boat.updateBoat(boatInfoArr);
+            
+            // Spara MemberList
+            this.list.saveMemberList();
 
-            member.getBoatListOfUser()[boatId].setNewBoatDetails(boatInfoArr);
-
-            list.saveMemberList();
-
-            view.confirm("Båtinformationen har uppdaterats, tryck 'ENTER' för att fortsätta...");
+            // Visa bekräftelse
+            this.view.confirm("Båtinformationen har uppdaterats, tryck 'ENTER' för att fortsätta...");
         }
 
+        // Hantera användarens val av aktivitet
         public void menuChoiceSwitch(int input)
         {
             switch(input){
@@ -252,12 +279,13 @@ namespace GladanCRUD
             }
         }
 
+        // Visa detaljerad information om en medlem
         private void showSingleMember()
         {
             // Visa enkel medlemslista
             this.view.showMembersList(this.list.memberList);
 
-            // Välj medlem
+            // Välj medlem att visa
             int input = getUserChoiceOfMember(this.list.memberList);
             
             // Skapa ny tillfällig lista innehållandes endast en medlem 
@@ -269,3 +297,17 @@ namespace GladanCRUD
         }
     }
 }
+
+
+
+
+////ta bort användarens gamla data
+//this.list.deleteUserById(input); //TODO: Obs MedlemsId/nummer blir nytt, ska det vara så? 
+//                                // ersätta istä'llet gamla värden med de nya? istället för att ta bort.
+
+//bygg den nya användaren
+//TODO: ÄNDRA!!!! //MemberModel editedUserToAdd = new MemberModel(updatedUserData[0],updatedUserData[1],updatedUserData[2]);
+//lägg till nya datan            
+//TODO: ÄNDRA!!! //this.list.addMember(editedUserToAdd);
+
+//DONE! :D
