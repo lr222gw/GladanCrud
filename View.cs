@@ -41,8 +41,8 @@ namespace GladanCRUD
             int listSize = membersList.Count();
 
             for (int i = 0; i < listSize; i++)
-                Console.Out.WriteLine("{0,5}       {1,-20} {2,2}", membersList[i].getThisMemberId(), membersList[i].getUserFirstName()
-                                      + " " + membersList[i].getUserLastName(), membersList[i].getBoatListOfUser().Count());
+                Console.Out.WriteLine("{0,5}       {1,-20} {2,2}", membersList[i].getThisMemberId(), membersList[i].getUserFirstName() + " " 
+                                                                   + membersList[i].getUserLastName(), membersList[i].getBoatListOfUser().Count());
 
             Console.Out.WriteLine("========================================");
             Console.Out.Write("Tryck 'ENTER' för att återgå till menyn");
@@ -62,8 +62,8 @@ namespace GladanCRUD
 
             for (int i = 0; i < listSize; i++)
             {
-                Console.Out.Write("{0,5}       {1,-20}   {2,-15}", membersList[i].getThisMemberId(), membersList[i].getUserFirstName()
-                                          + " " + membersList[i].getUserLastName(), membersList[i].getSocialSecurityNumber());
+                Console.Out.Write("{0,5}       {1,-20}   {2,-15}", membersList[i].getThisMemberId(), membersList[i].getUserFirstName() + " " 
+                                                                   + membersList[i].getUserLastName(), membersList[i].getSocialSecurityNumber());
 
                 List<BoatModel> boatList = membersList[i].getBoatListOfUser();
                 int numberOfBoats = boatList.Count();
@@ -286,18 +286,29 @@ namespace GladanCRUD
                 Console.Out.WriteLine(i + ". " + Enum.GetName(typeof(BoatType), i));
 
             Console.Out.WriteLine("=========================");
-            Console.Out.Write("Välj typ av båt: ");
+            //Console.Out.Write("Välj typ av båt: ");
         }
 
-        public BoatType getNewBoatType()
+        //public BoatType getNewBoatType()
+        //{
+        //    Console.Clear();
+        //    Console.Out.WriteLine("Registrera ny båt");
+        //    Console.Out.WriteLine("=========================");
+
+        //    showListOfBoatTypes();
+            
+        //    return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput())); //getUserInput // Ändra så att int returneras och kollen görs i modellen
+        //}
+
+        public void showBoatTypes()
         {
             Console.Clear();
             Console.Out.WriteLine("Registrera ny båt");
             Console.Out.WriteLine("=========================");
 
             showListOfBoatTypes();
-            
-            return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput())); //getUserInput // Ändra så att int returneras och kollen görs i modellen
+
+            //return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput())); //getUserInput // Ändra så att int returneras och kollen görs i modellen
         }
 
         public int getNewBoatLength()

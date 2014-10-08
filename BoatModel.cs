@@ -6,15 +6,6 @@ using System.Threading.Tasks;
 
 namespace GladanCRUD
 {
-    public enum BoatType
-    {
-        Segelbåt = 1,
-        Motorseglare,
-        Motorbåt,
-        Kajak_Kanot,
-        Övrigt
-    }
-
     [Serializable]
     class BoatModel
     {
@@ -60,5 +51,14 @@ namespace GladanCRUD
             this.boatType = (BoatType)newBoatData[0];
             this.length = newBoatData[1];
         }
+    }
+
+    public enum BoatType
+    {
+        Segelbåt = 1,
+        Motorseglare,
+        Motorbåt,
+        Kajak_Kanot,
+        Övrigt
     }
 }

@@ -96,7 +96,7 @@ namespace GladanCRUD
             // Hämta member baserat på Id
             MemberModel member = list.getUserFromList(input);
 
-            // Hämta medlemsdata från MemberList
+            // Hämta medlemsdata från Member
             string[] memberData = member.getUserInfo();
 
             // Redigera och visa förnam, efternam, personnummer
@@ -123,13 +123,35 @@ namespace GladanCRUD
 
             // Hämta medlem från MemberList
             MemberModel member = this.list.getUserFromList(input);
+                        
+            // Visa lisat på båttyper
+            this.view.showBoatTypes();
 
-            // Hämta inmatat värde för båttyp och båtlängd
-            BoatType boatType = this.view.getNewBoatType();
-            int boatLength = this.view.getNewBoatLength();
+            // Hämta giltig inmatning från användaren
+            int boatType;
+            int enumSize = Enum.GetNames(typeof(BoatType)).Length;           
+            do{
+                boatType = this.view.getUserChoice("Ange båttyp: ");
 
+                if(boatType > 0 && boatType <= enumSize)
+                    break;
+
+                this.view.showIllegalInputMessage();
+            }while(true);
+            
+            int boatLength;
+            
+            do{
+                boatLength = this.view.getUserChoice("Ange längd: ");
+
+                if(boatLength > 0)
+                    break;
+
+                this.view.showIllegalInputMessage();
+            }while(true);
+                        
             // Skapa ny båt och lägg till i BoatList
-            member.addBoat(new BoatModel(boatType, boatLength));
+            member.addBoat(new BoatModel((BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), boatType)), boatLength));
             
             // Spara MemberList
             this.list.saveMemberList();
