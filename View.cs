@@ -21,13 +21,16 @@ namespace GladanCRUD
             string[] userDataArr = new string[3];
 
             Console.Clear();
-            //vyn presenterar hur man lägger till
-            Console.Out.WriteLine("Ange Förnamn :");
+            Console.Out.WriteLine("Registrera medlem");
+            Console.Out.WriteLine("==========================================="); //vyn presenterar hur man lägger till
             
+            Console.Out.Write("Ange Förnamn: ");
             userDataArr[0] = Console.ReadLine();
-            Console.Out.WriteLine("Ange Efternamn :");
+            
+            Console.Out.Write("Ange Efternamn: ");
             userDataArr[1] = Console.ReadLine();
-            Console.Out.WriteLine("Ange Personnummer :");
+            
+            Console.Out.Write("Ange Personnummer(ÅÅMMDD-XXXX): ");
             userDataArr[2] = Console.ReadLine();
 
             return userDataArr;
@@ -35,19 +38,39 @@ namespace GladanCRUD
 
         public void confirm(string messageToPrint)
         {
+            Console.Out.WriteLine();
             Console.Out.WriteLine(messageToPrint);
             Console.ReadLine();
         }
 
-        public void showAllUsers()
+        public void showAllUsers() //REMOVE OR REBUILD
         {
             Console.Clear();
             showMembersOfList(this.memberList.memberList);
         }
 
+        public void showMembersList()
+        {
+            Console.Clear();
+            Console.Out.WriteLine("Medlemslista");
+            Console.Out.WriteLine("==============================================");
+            Console.Out.WriteLine("MedlemsID   Namn                  Personnummer");
+            Console.Out.WriteLine("----------------------------------------------");
+
+            int listSize = this.memberList.memberList.Count();
+
+            for (int i = 0; i < listSize; i++)
+                Console.Out.WriteLine("{0,5}       {1,-20} {2,13}", memberList.memberList[i].getThisMemberId(), memberList.memberList[i].getUserFirstName()
+                                      + " " + memberList.memberList[i].getUserLastName(), memberList.memberList[i].getSocialSecurityNumber());
+
+            Console.Out.WriteLine("==============================================");
+        }
+
         public void showCompactList()
         {
             Console.Clear();
+            Console.Out.WriteLine("Lista medlemmar - Kompakt");
+            Console.Out.WriteLine("========================================");
             Console.Out.WriteLine("MedlemsID   Namn             Antal båtar");
             Console.Out.WriteLine("----------------------------------------");
             
@@ -57,14 +80,16 @@ namespace GladanCRUD
                 Console.Out.WriteLine("{0,5}       {1,-20} {2,2}", memberList.memberList[i].getThisMemberId(), memberList.memberList[i].getUserFirstName()
                                       + " " + memberList.memberList[i].getUserLastName(), memberList.memberList[i].getBoatListOfUser().Count());
 
-            Console.Out.WriteLine("----------------------------------------");
-            Console.Out.WriteLine("Tryck 'ENTER' för att återgå till menyn");
+            Console.Out.WriteLine("========================================");
+            Console.Out.Write("Tryck 'ENTER' för att återgå till menyn");
             Console.In.ReadLine();
         }
 
         public void showDetailedList()
         {
             Console.Clear();
+            Console.Out.WriteLine("Lista medlemmar - Fullständig");
+            Console.Out.WriteLine("==========================================================================");
             Console.Out.WriteLine("MedlemsID   Namn                   Personnummer   Båttyp          Längd(m)");
             Console.Out.WriteLine("--------------------------------------------------------------------------");
 
@@ -94,14 +119,14 @@ namespace GladanCRUD
                 }
             }
 
-            Console.Out.WriteLine("--------------------------------------------------------------------------");
-            Console.Out.WriteLine("Tryck 'ENTER' för att återgå till menyn");
+            Console.Out.WriteLine("==========================================================================");
+            Console.Out.Write("Tryck 'ENTER' för att återgå till menyn");
             Console.In.ReadLine();
         }
 
         public int getUserID(string message)
         {
-            Console.Out.WriteLine(message);
+            Console.Out.Write(message);
             string input = Console.ReadLine();
             
             if (Regex.IsMatch(input, "^[0-9]+"))
@@ -125,7 +150,7 @@ namespace GladanCRUD
         {
             Console.Clear();
             Console.WriteLine("Gladan CRUD");
-            Console.WriteLine("=================================================");
+            Console.WriteLine("================================");
             Console.WriteLine("1. Registrera medlem");
             Console.WriteLine("2. Lista medlemmar - Kompakt");
             Console.WriteLine("3. Lista medlemmar - Fullständig");
@@ -136,7 +161,7 @@ namespace GladanCRUD
             Console.WriteLine("8. Ta bort båt");
             Console.WriteLine("9. Ändra båt");
             Console.WriteLine("0. Avsluta applikation");
-            Console.WriteLine("=================================================");
+            Console.WriteLine("================================");
             Console.Write("Ange menyalternativ: ");
         }
 
@@ -163,17 +188,27 @@ namespace GladanCRUD
 
         public string[] updateAndReturnMemberData(string[] userData)
         {
-            
             string[] updatedUserData = new string[3];
 
+            Console.Clear();
+            Console.Out.WriteLine("Ändra medlemsuppgifter");
+            Console.Out.WriteLine("====================================");
+            
             //Hämtar ny data
-            Console.Out.WriteLine("Ändra användaruppgifter, lämnna tomt för att ignorera ändring");
-            Console.Out.WriteLine("Förnamn: " + userData[0]);
+            Console.Out.WriteLine("Lämnna tomt för att ignorera ändring");
+            
+            Console.Out.WriteLine("\nFörnamn: " + userData[0]);
+            Console.Out.Write("Nytt Förnamn: ");
             updatedUserData[0] = Console.ReadLine().Trim();
-            Console.Out.WriteLine("Efternamn: " + userData[1]);
+            
+            Console.Out.WriteLine("\nEfternamn: " + userData[1]);
+            Console.Out.Write("Nytt Efteramn: ");
             updatedUserData[1] = Console.ReadLine().Trim();
-            Console.Out.WriteLine("Personnummer: " + userData[2]);
+            
+            Console.Out.WriteLine("\nPersonnummer: " + userData[2]);
+            Console.Out.Write("Nytt Personnummer: ");
             updatedUserData[2] = Console.ReadLine().Trim();
+            
             //SendKeys.SendWait("hello");
             //SendKeys
             //Console.In.Read();
@@ -182,6 +217,7 @@ namespace GladanCRUD
             updatedUserData = validateIfInputIsEmptySTRING(updatedUserData, userData);
             return updatedUserData;
         }
+
         public int[] updateAndReturnBoatData(int[] boatData)
         {
 
@@ -249,16 +285,21 @@ namespace GladanCRUD
 
         public void presentListOfBoatTypes()
         {
-            Console.Out.WriteLine("Välj typ av båt");
-
             int enumSize = Enum.GetNames(typeof(BoatType)).Length;
 
             for (int i = 1; i <= enumSize; i++)
                 Console.Out.WriteLine(i + ". " + Enum.GetName(typeof(BoatType), i));
+
+            Console.Out.WriteLine("-------------------------");
+            Console.Out.Write("Välj typ av båt: ");
         }
 
         public BoatType getNewBoatType()
         {
+            Console.Clear();
+            Console.Out.WriteLine("Registrera ny båt");
+            Console.Out.WriteLine("=========================");
+
             presentListOfBoatTypes();
             
             return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput()));
@@ -266,7 +307,8 @@ namespace GladanCRUD
 
         public int getNewBoatLength()
         {
-            Console.Out.WriteLine("Ange båtens längd(m): ");
+            Console.Out.Write("Ange båtens längd(m): ");
+
             return getUserInput();
         }
 

@@ -42,30 +42,32 @@ namespace GladanCRUD
 
             this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.newestId +=1));
             this.list.saveNewestId();
-            this.view.confirm("Medlemmen är tillagd, tryck för att fortsätta...");
+            this.view.confirm("Medlemmen är tillagd, tryck 'ENTER' för att fortsätta...");
 
         }
         private void removeUser()
         {
             //Lista användare
-            this.view.showAllUsers();          
+            //this.view.showAllUsers();             REMOVED
+            this.view.showMembersList();
 
             //Välj användarens id/nummer via menyn
-            int input = this.view.getUserID("Ange användarens ID, för att ta bort användaren");
+            int input = this.view.getUserID("Ange medlemsID för den medlem som \nskall tas bort: ");
 
             //Ta bort användaren och spara listan
             this.list.deleteUserById(input);
             
-            this.view.confirm("Medlemmen borttagen, tryck för att fortsätta...");
+            this.view.confirm("Medlemmen borttagen, tryck 'ENTER' för att fortsätta...");
         }
 
         private void changeUserDetails()
         {
             //Lista användare
-            this.view.showAllUsers();
+            //this.view.showAllUsers();             REMOVED
+            this.view.showMembersList();
 
             //Välj användarens id/nummer via menyn
-            int input = this.view.getUserID("Ange användarens ID, för att ändra användaren");
+            int input = this.view.getUserID("Ange medlemsID för den medlem som \nskall ändras: ");
             
             // Hämta user från lista
             string[] userData = this.list.getUserInfoByID(input);
@@ -81,17 +83,19 @@ namespace GladanCRUD
             //TODO: ÄNDRA!!!! //MemberModel editedUserToAdd = new MemberModel(updatedUserData[0],updatedUserData[1],updatedUserData[2]);
             //lägg till nya datan            
             //TODO: ÄNDRA!!! //this.list.addMember(editedUserToAdd);
-            this.view.confirm("Medlemsuppgifterna har ändrats , tryck för att fortsätta...");
+            this.view.confirm("Medlemsuppgifterna har ändrats, tryck 'ENTER' för att fortsätta...");
             //DONE! :D
         }
 
         public void registerBoat()
         {
-            this.view.showAllUsers();
+            //this.view.showAllUsers();                     REMOVED
+            this.view.showMembersList();
             
-            int input = this.view.getUserID("Ange medlemsID för den användare till vilken en ny båt skall registreras");
+            int input = this.view.getUserID("Ange medlemsID för den medlem till vilken en \nny båt skall registreras: ");
 
             MemberModel member = this.list.getUserFromList(input);
+
             BoatType boatType = this.view.getNewBoatType();
             int boatLength = this.view.getNewBoatLength();
 
@@ -99,7 +103,7 @@ namespace GladanCRUD
             member.addBoat(newBoat);
             this.list.saveMemberList();
 
-            this.view.confirm("Båten har registrerats, tryck för att fortsätta...");
+            this.view.confirm("Båten har registrerats, tryck 'ENTER' för att fortsätta...");
         }
 
         public List<MemberModel> getBoatOwnerList()
