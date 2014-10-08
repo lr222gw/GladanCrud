@@ -14,27 +14,31 @@ namespace GladanCRUD
         public MenuController()
         {
             this.list = new MemberListModel();
-            //this.view = new View(this.list);              CHANGED - Removed dependancy from Model in View
             this.view = new View(); 
         }
 
+        // Show main menu and get user choice
         public void doMenu(){
 
-            //Anropa menu så användaren kan göra val 
             int input;
+            
             do
             {
                 this.view.showMenu();
-
-                input = this.view.getUserInput();
-                if (input <= 11 && input > -1)
+                
+                do
                 {
-                    //Använd valet, och utför valet. (switch)
-                    menuChoiceSwitch(input);
-                    
-                }
+                    input = this.view.getUserChoice("Ange menyalternativ: ");
 
-            } while (input != 0);                        
+                    if (input >= 0 && input <= 9)
+                        break;
+                    
+                    this.view.showIllegalInputMessage();
+                } while (true);
+
+                menuChoiceSwitch(input);
+
+            } while (true);                        
         }
 
         public void addUser()
@@ -46,17 +50,30 @@ namespace GladanCRUD
             this.view.confirm("Medlemmen är tillagd, tryck 'ENTER' för att fortsätta...");
 
         }
+
+        private int getUserChoiceOfMember(List<MemberModel> membersList)
+        {
+            int input;
+
+            do
+            {
+                input = this.view.getUserChoice("Ange ID: ");
+                
+                foreach(MemberModel member in membersList)
+                    if (member.getThisMemberId() == input)
+                        return input;
+
+                this.view.showIllegalInputMessage();
+            } while (true);
+        }
+
         private void removeUser()
         {
-            //Lista användare
-            //this.view.showAllUsers();             REMOVED
-            this.view.showMembersList(this.list.memberList);
-
-            //Välj användarens id/nummer via menyn
-            int input = this.view.getUserID("Ange medlemsID för den medlem som \nskall tas bort: ");
-
-            //Ta bort användaren och spara listan
-            this.list.deleteUserById(input);
+            // Lista användare
+            this.view.showMembersList(this.list.memberList, "Ta bort medlem");
+          
+            //Hämta användarens val och ta bort användaren
+            this.list.deleteUserById(getUserChoiceOfMember(this.list.memberList));
             
             this.view.confirm("Medlemmen borttagen, tryck 'ENTER' för att fortsätta...");
         }
@@ -64,11 +81,10 @@ namespace GladanCRUD
         private void changeUserDetails()
         {
             //Lista användare
-            //this.view.showAllUsers();             REMOVED
-            this.view.showMembersList(this.list.memberList);
+            this.view.showMembersList(this.list.memberList, "Ändra medlemsuppgifter");
 
             //Välj användarens id/nummer via menyn
-            int input = this.view.getUserID("Ange medlemsID för den medlem som \nskall ändras: ");
+            int input = getUserChoiceOfMember(this.list.memberList);
             
             // Hämta user från lista
             string[] userData = this.list.getUserInfoByID(input);
@@ -90,10 +106,9 @@ namespace GladanCRUD
 
         public void registerBoat()
         {
-            //this.view.showAllUsers();                     REMOVED
-            this.view.showMembersList(this.list.memberList);
-            
-            int input = this.view.getUserID("Ange medlemsID för den medlem till vilken en \nny båt skall registreras: ");
+            this.view.showMembersList(this.list.memberList, "Registrera båt");
+
+            int input = getUserChoiceOfMember(this.list.memberList);
 
             MemberModel member = this.list.getUserFromList(input);
 
@@ -128,26 +143,46 @@ namespace GladanCRUD
         {
             // Lista alla båtägare
             List<MemberModel> boatOwnerList = getBoatOwnerList();
-            //hämta båtägare i listan genom id
-            //this.view.showMembersOfList(boatOwnerList);               CHANGED
+            
+            // Visa lista med båtägare
             this.view.showMembersList(boatOwnerList, "Båtägare");
             
-            //int memberId = this.view.getUserInput();                  CHANGED
-            int memberId = this.view.getUserID("Ange medlemsID: "); // BUHU! Komma på en snyggare lösning
-            MemberModel member = list.getUserFromList(memberId);            
-            //Hämta användarvalet
+            // Hämta användarens val av båtägare
+            int input = getUserChoiceOfMember(boatOwnerList);
+
+            MemberModel member = list.getUserFromList(input);            
 
             return member;
         }
 
+        // Hämta användarens val av båt
+        private int getSpecificBoatId(List<BoatModel> boatList)
+        {
+            int boatId;
+            int boatListSize = boatList.Count();
+
+            do
+            {
+                boatId = this.view.getUserChoice("Ange BåtID: ");
+
+                if (boatId >= 0 && boatId <= boatListSize - 1)
+                    return boatId;
+
+                this.view.showIllegalInputMessage();
+            } while (true);
+        }
+        
+
         public void removeBoat() {
 
+            // Hämta vilken båtägare det gäller
             MemberModel member = getBoatOwnerIdFromUser();
-            //this.view.listMembersBoats(member.getBoatListOfUser());   CHANGED
+
+            // Lista medlemmens båtar
             this.view.showMemberBoatsList(member.getBoatListOfUser());
 
-            //int boatId = this.view.getUserInput();                    CHANGED
-            int boatId = this.view.getUserID("Ange RadId för den båt som \nskall tas bort: ");
+            // Hämta användarens val av båt
+            int boatId = getSpecificBoatId(member.getBoatListOfUser());
 
             //ta bort båt
             member.getBoatListOfUser().RemoveAt(boatId);
@@ -155,6 +190,28 @@ namespace GladanCRUD
             list.saveMemberList();
 
             this.view.confirm("Båten har tagits bort, tryck 'ENTER' för att fortsätta...");
+        }
+
+        private void changeBoatDetails()
+        {
+            // Hämta vilken båtägare det gäller
+            MemberModel member = getBoatOwnerIdFromUser();
+
+            // Lista medlemmens båtar
+            this.view.showMemberBoatsList(member.getBoatListOfUser());
+
+            // Hämta användarens val av båt
+            int boatId = getSpecificBoatId(member.getBoatListOfUser());
+            
+            int[] boatInfoArr = this.list.getBoatInfoByID(member, boatId);
+
+            boatInfoArr = this.view.updateAndReturnBoatData(boatInfoArr);
+
+            member.getBoatListOfUser()[boatId].setNewBoatDetails(boatInfoArr);
+
+            list.saveMemberList();
+
+            view.confirm("Båtinformationen har uppdaterats, tryck 'ENTER' för att fortsätta...");
         }
 
         public void menuChoiceSwitch(int input)
@@ -201,28 +258,14 @@ namespace GladanCRUD
             this.view.showMembersList(this.list.memberList);
 
             // Välj medlem
-            int memberId = this.view.getUserID("Ange medlemsID för den medlem som \ndu önskar visa mera information: ");
+            int input = getUserChoiceOfMember(this.list.memberList);
             
-            // Skapa nya lista innehållandes endast en medlem 
+            // Skapa ny tillfällig lista innehållandes endast en medlem 
             List<MemberModel> singelMemberList = new List<MemberModel>();
-            singelMemberList.Add(this.list.getUserFromList(memberId));
+            singelMemberList.Add(this.list.getUserFromList(input));
 
             // Visa medlemsinformation
             this.view.showDetailedList(singelMemberList, "Medlemsinformation");
-        }
-
-        private void changeBoatDetails()
-        {
-            // hämta båtR hoss användare som har bå¨tar ; anv'änd gamla kod
-            MemberModel member = getBoatOwnerIdFromUser();
-            this.view.listMembersBoats(member.getBoatListOfUser());
-            int boatId = this.view.getUserInput();
-            int[] boatInfoArr = this.list.getBoatInfoByID(member, boatId);
-            boatInfoArr = this.view.updateAndReturnBoatData(boatInfoArr);
-
-            member.getBoatListOfUser()[boatId].setNewBoatDetails(boatInfoArr);
-            list.saveMemberList();
-            view.confirm("Båtdetaljerna har ändrats");
         }
     }
 }

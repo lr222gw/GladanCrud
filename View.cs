@@ -9,38 +9,24 @@ namespace GladanCRUD
 {
     class View
     {
-        ////View
-        //private MemberListModel memberList;//Här anropar vi modellen, ska det va så?
-
-        //public View(MemberListModel memberList) {
-        //    this.memberList = memberList;            
-        //}
-
-        public string[] getNewUserInformation()
+        // Displays main menu
+        public void showMenu()
         {
-            string[] userDataArr = new string[3];
-
             Console.Clear();
-            Console.Out.WriteLine("Registrera medlem");
-            Console.Out.WriteLine("===========================================");
-            
-            Console.Out.Write("Ange Förnamn: ");
-            userDataArr[0] = Console.ReadLine();
-            
-            Console.Out.Write("Ange Efternamn: ");
-            userDataArr[1] = Console.ReadLine();
-            
-            Console.Out.Write("Ange Personnummer(ÅÅMMDD-XXXX): ");
-            userDataArr[2] = Console.ReadLine();
-
-            return userDataArr;
-        }
-
-        // Shows a confirmation message after action by user
-        public void confirm(string messageToPrint)
-        {
-            Console.Out.Write("\n" + messageToPrint);
-            Console.ReadLine();
+            Console.WriteLine("Gladan CRUD");
+            Console.WriteLine("================================");
+            Console.WriteLine("1. Registrera medlem");
+            Console.WriteLine("2. Lista medlemmar - Kompakt");
+            Console.WriteLine("3. Lista medlemmar - Fullständig");
+            Console.WriteLine("4. Ta bort medlem");
+            Console.WriteLine("5. Ändra medlem");
+            Console.WriteLine("6. Visa medlem");
+            Console.WriteLine("7. Registrera båt");
+            Console.WriteLine("8. Ta bort båt");
+            Console.WriteLine("9. Ändra båt");
+            Console.WriteLine("0. Avsluta applikation");
+            Console.WriteLine("================================");
+            //Console.Write("Ange menyalternativ: ");
         }
 
         // Shows members in a compact view
@@ -137,68 +123,47 @@ namespace GladanCRUD
             Console.Out.WriteLine("==============================");
         }
         
-        public int getUserID(string message) // Sammanfoga med getUserInput eller generalisera???
+        // Returns a numeric menuvalue
+        public int getUserChoice(string message)
         {
             Console.Out.Write(message);
-            string input = Console.ReadLine();
-            
-            if (Regex.IsMatch(input, "^[0-9]+"))
-            {
-                return int.Parse(input);
-            }
-            else
-            {
-                Console.Out.WriteLine("Måste ange ett korrekt värde");
-                getUserID(message);
-            }
 
-            return 0;
-        }
-        
-        public int getUserInput()
-        {
-            //string input = Console.ReadLine();
-            //if (input) //TODO: gör säkerhetskollar...
-            //{
+            int input;
 
-            //}
-            string input = Console.ReadLine();
-            if (Regex.IsMatch(input, "^[0-9]+"))
-            {
-                return int.Parse(input);
-            }
-            else
-            {
-                Console.Out.WriteLine("Måste ange ett korrekt värde");
-                getUserInput();
-            }
+            if (int.TryParse(Console.ReadLine(), out input))
+                return input;
 
-            return 0;
+            showIllegalInputMessage();
+
+            return getUserChoice(message);
         }
 
-        //public void getUpdatedMemberInfo(string memberName, string socialSecurityNumber)
-        //{
-        //}
-        
-        public void showMenu()
+        // Displays an errormessage when user input is invalid
+        public void showIllegalInputMessage()
         {
+            Console.Out.WriteLine("Ogiltigt val. Försök igen. ");
+        }
+
+        public string[] getNewUserInformation()
+        {
+            string[] userDataArr = new string[3];
+
             Console.Clear();
-            Console.WriteLine("Gladan CRUD");
-            Console.WriteLine("================================");
-            Console.WriteLine("1. Registrera medlem");
-            Console.WriteLine("2. Lista medlemmar - Kompakt");
-            Console.WriteLine("3. Lista medlemmar - Fullständig");
-            Console.WriteLine("4. Ta bort medlem");
-            Console.WriteLine("5. Ändra medlem");
-            Console.WriteLine("6. Visa medlem");
-            Console.WriteLine("7. Registrera båt");
-            Console.WriteLine("8. Ta bort båt");
-            Console.WriteLine("9. Ändra båt");
-            Console.WriteLine("0. Avsluta applikation");
-            Console.WriteLine("================================");
-            Console.Write("Ange menyalternativ: ");
+            Console.Out.WriteLine("Registrera medlem");
+            Console.Out.WriteLine("===========================================");
+
+            Console.Out.Write("Ange Förnamn: ");
+            userDataArr[0] = Console.ReadLine();
+
+            Console.Out.Write("Ange Efternamn: ");
+            userDataArr[1] = Console.ReadLine();
+
+            Console.Out.Write("Ange Personnummer(ÅÅMMDD-XXXX): ");
+            userDataArr[2] = Console.ReadLine();
+
+            return userDataArr;
         }
-        
+
         public string[] updateAndReturnMemberData(string[] userData)
         {
             string[] updatedUserData = new string[3];
@@ -241,7 +206,7 @@ namespace GladanCRUD
 
             //Hämtar ny båttyp
             Console.Out.WriteLine("Båttyp (ange siffra) \nDin nuvarande typ är:" + (BoatType)boatData[0] + "\n");
-            presentListOfBoatTypes();
+            showListOfBoatTypes();
             string typeInput = Console.ReadLine();
             if (typeInput == "")
             {
@@ -296,7 +261,7 @@ namespace GladanCRUD
             return updatedData;
         }
 
-        public void presentListOfBoatTypes()
+        public void showListOfBoatTypes()
         {
             int enumSize = Enum.GetNames(typeof(BoatType)).Length;
 
@@ -313,35 +278,84 @@ namespace GladanCRUD
             Console.Out.WriteLine("Registrera ny båt");
             Console.Out.WriteLine("=========================");
 
-            presentListOfBoatTypes();
+            showListOfBoatTypes();
             
-            return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput()));
+            return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput())); //getUserInput
         }
 
         public int getNewBoatLength()
         {
             Console.Out.Write("Ange båtens längd(m): ");
 
-            return getUserInput();
+            return getUserInput();                                                                        //getUserInput
         }
 
-        public void showMembersOfList(List<MemberModel> ListToBeShown)
+        // Shows a confirmation message after action by user
+        public void confirm(string messageToPrint)
         {
-            Console.Clear();
-            for (int i = 0; i < ListToBeShown.Count(); i++)
-            {
-                Console.Out.WriteLine(ListToBeShown[i].toString());
-            }
+            Console.Out.Write("\n" + messageToPrint);
+            Console.ReadLine();
         }
 
-        internal void listMembersBoats(List<BoatModel> memberBoatList)
+        //public void showMembersOfList(List<MemberModel> ListToBeShown)
+        //{
+        //    Console.Clear();
+        //    for (int i = 0; i < ListToBeShown.Count(); i++)
+        //    {
+        //        Console.Out.WriteLine(ListToBeShown[i].toString());
+        //    }
+        //}
+
+        //internal void listMembersBoats(List<BoatModel> memberBoatList)
+        //{
+        //    Console.Clear();
+        //    for (int i = 0; i < memberBoatList.Count; i++)
+        //    {
+        //        Console.WriteLine(i + ": " + memberBoatList[i].toString());
+        //    }
+
+        //}
+        //public int getUserID(string message) // Sammanfoga med getUserInput eller generalisera???
+        //{
+        //    Console.Out.Write(message);
+        //    string input = Console.ReadLine();
+
+        //    if (Regex.IsMatch(input, "^[0-9]+"))
+        //    {
+        //        return int.Parse(input);
+        //    }
+        //    else
+        //    {
+        //        Console.Out.WriteLine("Måste ange ett korrekt värde");
+        //        getUserID(message);
+        //    }
+
+        //    return 0;
+        //}
+
+        public int getUserInput()
         {
-            Console.Clear();
-            for (int i = 0; i < memberBoatList.Count; i++)
+            //string input = Console.ReadLine();
+            //if (input) //TODO: gör säkerhetskollar...
+            //{
+
+            //}
+            string input = Console.ReadLine();
+            if (Regex.IsMatch(input, "^[0-9]+"))
             {
-                Console.WriteLine(i + ": " + memberBoatList[i].toString());
+                return int.Parse(input);
+            }
+            else
+            {
+                Console.Out.WriteLine("Måste ange ett korrekt värde");
+                getUserInput();
             }
 
+            return 0;
         }
+
+        //public void getUpdatedMemberInfo(string memberName, string socialSecurityNumber)
+        //{
+        //}
     }
 }

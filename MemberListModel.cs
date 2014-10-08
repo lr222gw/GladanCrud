@@ -142,5 +142,14 @@ namespace GladanCRUD
 
             return boatInfoArr;
         }
+
+        //public bool memberExists(int memberId)
+        //{
+        //    foreach (MemberModel member in memberList)
+        //        if (member.getThisMemberId() == memberId)
+        //            return true;
+
+        //    return false;
+        //}
     }
 }
