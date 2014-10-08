@@ -14,7 +14,8 @@ namespace GladanCRUD
         public MenuController()
         {
             this.list = new MemberListModel();
-            this.view = new View(this.list);
+            //this.view = new View(this.list);              CHANGED - Removed dependancy from Model in View
+            this.view = new View(); 
         }
 
         public void doMenu(){

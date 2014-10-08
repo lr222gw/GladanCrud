@@ -9,12 +9,12 @@ namespace GladanCRUD
 {
     class View
     {
-        //View
-        private MemberListModel memberList;//Här anropar vi modellen, ska det va så?
+        ////View
+        //private MemberListModel memberList;//Här anropar vi modellen, ska det va så?
 
-        public View(MemberListModel memberList) {
-            this.memberList = memberList;            
-        }
+        //public View(MemberListModel memberList) {
+        //    this.memberList = memberList;            
+        //}
 
         public string[] getNewUserInformation()
         {
@@ -36,19 +36,14 @@ namespace GladanCRUD
             return userDataArr;
         }
 
+        // Shows a confirmation message after action by user
         public void confirm(string messageToPrint)
         {
-            Console.Out.WriteLine();
-            Console.Out.Write(messageToPrint);
+            Console.Out.Write("\n" + messageToPrint);
             Console.ReadLine();
         }
 
-        //public void showAllUsers() //REMOVE OR REBUILD
-        //{
-        //    Console.Clear();
-        //    showMembersOfList(this.memberList.memberList);
-        //}
-
+        // Shows members in a compact view
         public void showCompactList(List<MemberModel> membersList)
         {
             Console.Clear();
@@ -67,7 +62,8 @@ namespace GladanCRUD
             Console.Out.Write("Tryck 'ENTER' för att återgå till menyn");
             Console.In.ReadLine();
         }
-        
+
+        // Shows member / members in a detailed view
         public void showDetailedList(List<MemberModel> membersList, string listTitle)
         {
             Console.Clear();
@@ -106,7 +102,8 @@ namespace GladanCRUD
             Console.Out.Write("Tryck 'ENTER' för att återgå till menyn");
             Console.In.ReadLine();
         }
-                        
+         
+        // Shows members / boatowners depending on supplied list
         public void showMembersList(List<MemberModel> members, string listTitle = "Medlemmar")
         {
             Console.Clear();
@@ -123,6 +120,7 @@ namespace GladanCRUD
             Console.Out.WriteLine("==================================");
         }
 
+        // Shows a members boats
         public void showMemberBoatsList(List<BoatModel> boatList)
         {
             Console.Clear();
@@ -156,10 +154,31 @@ namespace GladanCRUD
 
             return 0;
         }
-
-        public void getUpdatedMemberInfo(string memberName, string socialSecurityNumber)
+        
+        public int getUserInput()
         {
+            //string input = Console.ReadLine();
+            //if (input) //TODO: gör säkerhetskollar...
+            //{
+
+            //}
+            string input = Console.ReadLine();
+            if (Regex.IsMatch(input, "^[0-9]+"))
+            {
+                return int.Parse(input);
+            }
+            else
+            {
+                Console.Out.WriteLine("Måste ange ett korrekt värde");
+                getUserInput();
+            }
+
+            return 0;
         }
+
+        //public void getUpdatedMemberInfo(string memberName, string socialSecurityNumber)
+        //{
+        //}
         
         public void showMenu()
         {
@@ -179,28 +198,7 @@ namespace GladanCRUD
             Console.WriteLine("================================");
             Console.Write("Ange menyalternativ: ");
         }
-
-        public int getUserInput()
-        {
-            //string input = Console.ReadLine();
-            //if (input) //TODO: gör säkerhetskollar...
-            //{
-
-            //}
-            string input = Console.ReadLine();
-            if (Regex.IsMatch(input, "^[0-9]+"))
-            {
-                return int.Parse(input);
-            }
-            else
-            {
-                Console.Out.WriteLine("Måste ange ett korrekt värde");
-                getUserInput();
-            }            
-
-            return 0;
-        }
-
+        
         public string[] updateAndReturnMemberData(string[] userData)
         {
             string[] updatedUserData = new string[3];
