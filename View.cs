@@ -39,7 +39,7 @@ namespace GladanCRUD
         public void confirm(string messageToPrint)
         {
             Console.Out.WriteLine();
-            Console.Out.WriteLine(messageToPrint);
+            Console.Out.Write(messageToPrint);
             Console.ReadLine();
         }
 
@@ -66,6 +66,41 @@ namespace GladanCRUD
             Console.Out.WriteLine("==============================================");
         }
 
+        //----------------------------------------------------------------Gör eventuellt om så att en befintlig listning nyttjas. Antingen showMembersList eller showCompactList
+        public void showBoatOwnersList(List<MemberModel>boatOwners)
+        {
+            Console.Clear();
+            Console.Out.WriteLine("Båtägarlista");
+            Console.Out.WriteLine("==============================================");
+            Console.Out.WriteLine("MedlemsID   Namn                  Personnummer");
+            Console.Out.WriteLine("----------------------------------------------");
+
+            int listSize = boatOwners.Count();
+
+            for (int i = 0; i < listSize; i++)
+                Console.Out.WriteLine("{0,5}       {1,-20} {2,13}", boatOwners[i].getThisMemberId(), boatOwners[i].getUserFirstName()
+                                      + " " + boatOwners[i].getUserLastName(), boatOwners[i].getSocialSecurityNumber());
+
+            Console.Out.WriteLine("==============================================");
+        }
+        //---------------------------------------------------------------
+
+        public void showMemberBoatsList(List<BoatModel> boatList)
+        {
+            Console.Clear();
+            Console.Out.WriteLine("Båtlista");
+            Console.Out.WriteLine("==============================");
+            Console.Out.WriteLine("RadID   Båttyp           Längd");
+            Console.Out.WriteLine("------------------------------");
+
+            int listSize = boatList.Count();
+
+            for (int i = 0; i < listSize; i++)
+                Console.Out.WriteLine("{0,3}     {1,-12}   {2,6}", i, boatList[i].getBoatTypeString(), boatList[i].getBoatLength());
+
+            Console.Out.WriteLine("==============================");
+        }
+        
         public void showCompactList()
         {
             Console.Clear();
@@ -124,7 +159,7 @@ namespace GladanCRUD
             Console.In.ReadLine();
         }
 
-        public int getUserID(string message)
+        public int getUserID(string message) // Sammanfoga med getUserInput eller generalisera???
         {
             Console.Out.Write(message);
             string input = Console.ReadLine();
@@ -290,7 +325,7 @@ namespace GladanCRUD
             for (int i = 1; i <= enumSize; i++)
                 Console.Out.WriteLine(i + ". " + Enum.GetName(typeof(BoatType), i));
 
-            Console.Out.WriteLine("-------------------------");
+            Console.Out.WriteLine("=========================");
             Console.Out.Write("Välj typ av båt: ");
         }
 
@@ -324,7 +359,7 @@ namespace GladanCRUD
         internal void listMembersBoats(List<BoatModel> memberBoatList)
         {
             Console.Clear();
-            for (int i = 0; i < memberBoatList.Count; i++ )
+            for (int i = 0; i < memberBoatList.Count; i++)
             {
                 Console.WriteLine(i + ": " + memberBoatList[i].toString());
             }

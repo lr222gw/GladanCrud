@@ -128,9 +128,11 @@ namespace GladanCRUD
             // Lista alla båtägare
             List<MemberModel> boatOwnerList = getBoatOwnerList();
             //hämta båtägare i listan genom id
-            this.view.showMembersOfList(boatOwnerList);
-            int memberId = this.view.getUserInput();
-
+            //this.view.showMembersOfList(boatOwnerList);               CHANGED
+            this.view.showBoatOwnersList(boatOwnerList);
+            
+            //int memberId = this.view.getUserInput();                  CHANGED
+            int memberId = this.view.getUserID("Ange medlemsID: "); // BUHU! Komma på en snyggare lösning
             MemberModel member = list.getUserFromList(memberId);            
             //Hämta användarvalet
 
@@ -140,12 +142,18 @@ namespace GladanCRUD
         public void removeBoat() {
 
             MemberModel member = getBoatOwnerIdFromUser();
-            this.view.listMembersBoats(member.getBoatListOfUser());
-            int boatId = this.view.getUserInput();            
+            //this.view.listMembersBoats(member.getBoatListOfUser());   CHANGED
+            this.view.showMemberBoatsList(member.getBoatListOfUser());
+
+            //int boatId = this.view.getUserInput();                    CHANGED
+            int boatId = this.view.getUserID("Ange RadId för den båt som \nskall tas bort: ");
+
             //ta bort båt
             member.getBoatListOfUser().RemoveAt(boatId);
             //spara
             list.saveMemberList();
+
+            this.view.confirm("Båten har tagits bort, tryck 'ENTER' för att fortsätta...");
         }
 
         public void menuChoiceSwitch(int input)
