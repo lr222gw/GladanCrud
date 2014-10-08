@@ -50,11 +50,6 @@ namespace GladanCRUD
             return this.memberID;
         }
 
-        public string toString()
-        {
-            return "ID: " + this.memberID + " Förnamn: " + this.firstName + " Efternamn: " + this.lastName + " Personnummer: " + this.socialSecurityNumber;
-        }
-
         public string getUserFirstName()
         {
             return this.firstName;

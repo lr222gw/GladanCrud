@@ -123,7 +123,7 @@ namespace GladanCRUD
             Console.Out.WriteLine("==============================");
         }
         
-        // Returns a numeric menuvalue
+        // Returns a numeric menu value
         public int getUserChoice(string message)
         {
             Console.Out.Write(message);
@@ -138,12 +138,27 @@ namespace GladanCRUD
             return getUserChoice(message);
         }
 
+        // Returns a numeric menu value
+        public string getUserInput(string regexPattern)                                                            // Not implemented yet
+        {
+            string input = Console.In.ReadLine();
+
+            if (Regex.IsMatch(input, regexPattern))
+                return input;
+
+            showIllegalInputMessage();
+
+            return getUserInput(regexPattern);
+        }
+
+
         // Displays an errormessage when user input is invalid
         public void showIllegalInputMessage()
         {
-            Console.Out.WriteLine("Ogiltigt val. Försök igen. ");
+            Console.Out.WriteLine("Ogiltigt inamatning. Försök igen. ");
         }
 
+        // Collect new user information
         public string[] getNewUserInformation()
         {
             string[] userDataArr = new string[3];
@@ -153,13 +168,16 @@ namespace GladanCRUD
             Console.Out.WriteLine("===========================================");
 
             Console.Out.Write("Ange Förnamn: ");
-            userDataArr[0] = Console.ReadLine();
+            userDataArr[0] = getUserInput("^([a-ö, A-Ö, -])*$"); // Felaktig regex
 
             Console.Out.Write("Ange Efternamn: ");
-            userDataArr[1] = Console.ReadLine();
+            userDataArr[1] = getUserInput("^([a-ö, A-Ö, -])*$"); // Felaktig regex
 
             Console.Out.Write("Ange Personnummer(ÅÅMMDD-XXXX): ");
-            userDataArr[2] = Console.ReadLine();
+            userDataArr[2] = getUserInput("^\\d{6}-\\d{4}$");
+                       
+            
+            //userDataArr[2] = Console.ReadLine();
 
             return userDataArr;
         }
@@ -280,7 +298,7 @@ namespace GladanCRUD
 
             showListOfBoatTypes();
             
-            return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput())); //getUserInput
+            return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput())); //getUserInput // Ändra så att int returneras och kollen görs i modellen
         }
 
         public int getNewBoatLength()

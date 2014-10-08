@@ -28,12 +28,7 @@ namespace GladanCRUD
             this.length = length;
             this.member = member;
         }
-
-        public string toString()
-        {
-            return " Båttyp: " + this.boatType + " Längd: " + this.length; // +" Ägare: " + this.member.getUserFirstName() + " " + this.member.getUserLastName();
-        }
-
+     
         public int getBoatType()
         {
             return (int)this.boatType;
