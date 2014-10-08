@@ -154,28 +154,27 @@ namespace GladanCRUD
                     addUser();
                     break;
                 case 2:
+                    this.view.showCompactList();
                     break;
                 case 3:
+                    this.view.showDetailedList();
                     break;
                 case 4:
-                    break;
-                case 5:
                     removeUser();
                     break;
-                case 6:
+                case 5:
                     changeUserDetails();
                     break;
+                case 6:
+                    
+                    break;
                 case 7:
-                    break;
-                case 8:
-                    break;
-                case 9:
                     registerBoat();
                     break;
-                case 10:
+                case 8:
                     removeBoat();
                     break;
-                case 11:
+                case 9:
                     changeBoatDetails();
                     break;
                 default:

@@ -13,12 +13,8 @@ namespace GladanCRUD
         private MemberListModel memberList;//Här anropar vi modellen, ska det va så?
 
         public View(MemberListModel memberList) {
-
             this.memberList = memberList;            
-            
         }
-        
-
 
         public string[] getNewUserInformation()
         {
@@ -43,21 +39,71 @@ namespace GladanCRUD
             Console.ReadLine();
         }
 
-
-
         public void showAllUsers()
         {
             Console.Clear();
             showMembersOfList(this.memberList.memberList);
         }
 
+        public void showCompactList()
+        {
+            Console.Clear();
+            Console.Out.WriteLine("MedlemsID   Namn             Antal båtar");
+            Console.Out.WriteLine("----------------------------------------");
+            
+            int listSize = this.memberList.memberList.Count();
+
+            for (int i = 0; i < listSize; i++)
+                Console.Out.WriteLine("{0,5}       {1,-20} {2,2}", memberList.memberList[i].getThisMemberId(), memberList.memberList[i].getUserFirstName()
+                                      + " " + memberList.memberList[i].getUserLastName(), memberList.memberList[i].getBoatListOfUser().Count());
+
+            Console.Out.WriteLine("----------------------------------------");
+            Console.Out.WriteLine("Tryck 'ENTER' för att återgå till menyn");
+            Console.In.ReadLine();
+        }
+
+        public void showDetailedList()
+        {
+            Console.Clear();
+            Console.Out.WriteLine("MedlemsID   Namn                   Personnummer   Båttyp          Längd(m)");
+            Console.Out.WriteLine("--------------------------------------------------------------------------");
+
+            int listSize = this.memberList.memberList.Count();
+
+            for (int i = 0; i < listSize; i++)
+            {
+                Console.Out.Write("{0,5}       {1,-20}   {2,-15}", memberList.memberList[i].getThisMemberId(), memberList.memberList[i].getUserFirstName()
+                                      + " " + memberList.memberList[i].getUserLastName(), memberList.memberList[i].getSocialSecurityNumber());
+
+                List<BoatModel> boatList = memberList.memberList[i].getBoatListOfUser();
+                int numberOfBoats = boatList.Count();
+
+                if(numberOfBoats > 0)
+                { 
+                    for (int j = 0; j < numberOfBoats; j++)
+                    {
+                        if (j > 0)
+                            Console.Out.Write("                                                  ");
+
+                        Console.Out.WriteLine("{0,-17} {1,3}", boatList[j].getBoatTypeString(), boatList[j].getBoatLength());
+                    }
+                }
+                else
+                {
+                    Console.Out.WriteLine();
+                }
+            }
+
+            Console.Out.WriteLine("--------------------------------------------------------------------------");
+            Console.Out.WriteLine("Tryck 'ENTER' för att återgå till menyn");
+            Console.In.ReadLine();
+        }
 
         public int getUserID(string message)
         {
-
             Console.Out.WriteLine(message);
-
             string input = Console.ReadLine();
+            
             if (Regex.IsMatch(input, "^[0-9]+"))
             {
                 return int.Parse(input);
@@ -69,17 +115,12 @@ namespace GladanCRUD
             }
 
             return 0;
-
         }
 
         public void getUpdatedMemberInfo(string memberName, string socialSecurityNumber)
         {
-            
-
         }
-
-
-
+        
         public void showNavigation()
         {
             Console.Clear();
@@ -88,16 +129,17 @@ namespace GladanCRUD
             Console.WriteLine("1. Registrera medlem");
             Console.WriteLine("2. Lista medlemmar - Kompakt");
             Console.WriteLine("3. Lista medlemmar - Fullständig");
-            Console.WriteLine("4. ??????????????????Skapa en ny medlem????????????");
-            Console.WriteLine("5. Ta bort medlem");
-            Console.WriteLine("6. Ändra medlem");
-            Console.WriteLine("8. Visa medlem");
-            Console.WriteLine("9. Registrera båt");
-            Console.WriteLine("10. Ta bort båt");
-            Console.WriteLine("11. Ändra båt");
+            Console.WriteLine("4. Ta bort medlem");
+            Console.WriteLine("5. Ändra medlem");
+            Console.WriteLine("6. Visa medlem");
+            Console.WriteLine("7. Registrera båt");
+            Console.WriteLine("8. Ta bort båt");
+            Console.WriteLine("9. Ändra båt");
             Console.WriteLine("0. Avsluta applikation");
-        
+            Console.WriteLine("=================================================");
+            Console.Write("Ange menyalternativ: ");
         }
+
         public int getUserInput()
         {
             //string input = Console.ReadLine();
@@ -193,7 +235,6 @@ namespace GladanCRUD
         }
         public int[] validateIfInputIsEmptyINT(int[] updatedData, int[] dataToCheckAgainst)
         {
-
             if (updatedData[0] == -1)
             {
                 updatedData[0] = dataToCheckAgainst[0];
@@ -202,7 +243,6 @@ namespace GladanCRUD
             {
                 updatedData[1] = dataToCheckAgainst[1];
             }
-
 
             return updatedData;
         }
@@ -237,7 +277,6 @@ namespace GladanCRUD
             {
                 Console.Out.WriteLine(ListToBeShown[i].toString());
             }
-            
         }
 
         internal void listMembersBoats(List<BoatModel> memberBoatList)
@@ -245,7 +284,6 @@ namespace GladanCRUD
             Console.Clear();
             for (int i = 0; i < memberBoatList.Count; i++ )
             {
-                
                 Console.WriteLine(i + ": " + memberBoatList[i].toString());
             }
 

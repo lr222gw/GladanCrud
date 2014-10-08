@@ -38,6 +38,11 @@ namespace GladanCRUD
             return (int)this.boatType;
         }
 
+        public string getBoatTypeString()
+        {
+            return this.boatType.ToString();
+        }
+
         public int getBoatLength()
         {
             return this.length;
