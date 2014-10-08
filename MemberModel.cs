@@ -23,8 +23,6 @@ namespace GladanCRUD
             this.lastName = lastName;
             this.socialSecurityNumber = socialSecurityNumber;
             this.boatList = new List<BoatModel>();
-
-
         }
 
         //private int getUniqueID(int newestId)
@@ -79,7 +77,6 @@ namespace GladanCRUD
         public void addBoat(BoatModel boat)
         {
             this.boatList.Add(boat);
-            
         }
     }
 }

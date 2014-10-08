@@ -5,25 +5,25 @@ using System.Text;
 
 namespace GladanCRUD
 {
-    class NavigationController
+    class MenuController
     {
         private View view;
         private MemberListModel list;
 
         // Constructor 
-        public NavigationController()
+        public MenuController()
         {
             this.list = new MemberListModel();
             this.view = new View(this.list);
         }
 
-        public void doNavigate(){
+        public void doMenu(){
 
             //Anropa menu så användaren kan göra val 
             int input;
             do
             {
-                this.view.showNavigation();
+                this.view.showMenu();
 
                 input = this.view.getUserInput();
                 if (input <= 11 && input > -1)
@@ -49,7 +49,7 @@ namespace GladanCRUD
         {
             //Lista användare
             //this.view.showAllUsers();             REMOVED
-            this.view.showMembersList();
+            this.view.showMembersList(this.list.memberList);
 
             //Välj användarens id/nummer via menyn
             int input = this.view.getUserID("Ange medlemsID för den medlem som \nskall tas bort: ");
@@ -64,7 +64,7 @@ namespace GladanCRUD
         {
             //Lista användare
             //this.view.showAllUsers();             REMOVED
-            this.view.showMembersList();
+            this.view.showMembersList(this.list.memberList);
 
             //Välj användarens id/nummer via menyn
             int input = this.view.getUserID("Ange medlemsID för den medlem som \nskall ändras: ");
@@ -90,7 +90,7 @@ namespace GladanCRUD
         public void registerBoat()
         {
             //this.view.showAllUsers();                     REMOVED
-            this.view.showMembersList();
+            this.view.showMembersList(this.list.memberList);
             
             int input = this.view.getUserID("Ange medlemsID för den medlem till vilken en \nny båt skall registreras: ");
 
@@ -129,7 +129,7 @@ namespace GladanCRUD
             List<MemberModel> boatOwnerList = getBoatOwnerList();
             //hämta båtägare i listan genom id
             //this.view.showMembersOfList(boatOwnerList);               CHANGED
-            this.view.showBoatOwnersList(boatOwnerList);
+            this.view.showMembersList(boatOwnerList, "Båtägare");
             
             //int memberId = this.view.getUserInput();                  CHANGED
             int memberId = this.view.getUserID("Ange medlemsID: "); // BUHU! Komma på en snyggare lösning
@@ -166,10 +166,10 @@ namespace GladanCRUD
                     addUser();
                     break;
                 case 2:
-                    this.view.showCompactList();
+                    this.view.showCompactList(this.list.memberList);
                     break;
                 case 3:
-                    this.view.showDetailedList();
+                    this.view.showDetailedList(this.list.memberList, "Medlemslista - Fullständig");
                     break;
                 case 4:
                     removeUser();
@@ -178,7 +178,7 @@ namespace GladanCRUD
                     changeUserDetails();
                     break;
                 case 6:
-                    
+                    showSingleMember();
                     break;
                 case 7:
                     registerBoat();
@@ -192,6 +192,22 @@ namespace GladanCRUD
                 default:
                     break;
             }
+        }
+
+        private void showSingleMember()
+        {
+            // Visa enkel medlemslista
+            this.view.showMembersList(this.list.memberList);
+
+            // Välj medlem
+            int memberId = this.view.getUserID("Ange medlemsID för den medlem som \ndu önskar visa mera information: ");
+            
+            // Skapa nya lista innehållandes endast en medlem 
+            List<MemberModel> singelMemberList = new List<MemberModel>();
+            singelMemberList.Add(this.list.getUserFromList(memberId));
+
+            // Visa medlemsinformation
+            this.view.showDetailedList(singelMemberList, "Medlemsinformation");
         }
 
         private void changeBoatDetails()

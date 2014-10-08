@@ -14,6 +14,7 @@ namespace GladanCRUD
         Kajak_Kanot,
         Övrigt
     }
+
     [Serializable]
     class BoatModel
     {
@@ -26,7 +27,7 @@ namespace GladanCRUD
             this.boatType = boatType;
             this.length = length;
             this.member = member;
-        }        
+        }
 
         public string toString()
         {
@@ -47,6 +48,7 @@ namespace GladanCRUD
         {
             return this.length;
         }
+
         public void setNewBoatDetails(int[] newBoatData)
         {
             this.boatType = (BoatType)newBoatData[0];

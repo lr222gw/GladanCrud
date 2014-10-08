@@ -17,7 +17,6 @@ namespace GladanCRUD
         const string newestIdFile = @"NewestId.bin";
         const string FileName = @"Members.bin";
 
-
         public MemberListModel()
         {
             this.memberList = new List<MemberModel>();
@@ -47,7 +46,6 @@ namespace GladanCRUD
                 BinaryFormatter deserializer = new BinaryFormatter();
                 this.newestId = (int)deserializer.Deserialize(TestFileStream);
                 TestFileStream.Close();
-
             }
             else
             {
@@ -57,22 +55,20 @@ namespace GladanCRUD
 
         public void saveMemberList()
         {
-
             Stream TestFileStream = File.Create(FileName);
             BinaryFormatter serializer = new BinaryFormatter();
             serializer.Serialize(TestFileStream, this.memberList);
             TestFileStream.Close();            
-
         }
 
         public void loadMemberList()
         {
-            if(File.Exists(FileName)){
+            if(File.Exists(FileName))
+            {
                 Stream TestFileStream = File.OpenRead(FileName);
                 BinaryFormatter deserializer = new BinaryFormatter();
                 this.memberList = (List<MemberModel>)deserializer.Deserialize(TestFileStream);                
                 TestFileStream.Close();
-
             }
             else
             {
@@ -85,15 +81,15 @@ namespace GladanCRUD
         {
             for (int i = 0; i < this.memberList.Count(); i++)
             {
-                if (this.memberList[i].getThisMemberId() == id){
-
+                if (this.memberList[i].getThisMemberId() == id)
+                {
                     return this.memberList[i];   
-
                 }                    
             }
 
             return null;
         }
+
         private int getUserPositionFromList(int id)
         {
             for (int i = 0; i < this.memberList.Count(); i++)
@@ -122,7 +118,6 @@ namespace GladanCRUD
             }else{
                 throw new Exception("User by that ID does not exist...");
             }
-            
         }
 
         public string[] getUserInfoByID(int input)
@@ -136,11 +131,9 @@ namespace GladanCRUD
             userInfoArr[2] = member.getSocialSecurityNumber();
 
             return userInfoArr;
-            
         }
         public int[] getBoatInfoByID(MemberModel boatOwner, int boatId)
         {
-
             BoatModel boat = boatOwner.getBoatListOfUser()[boatId];
             int[] boatInfoArr = new int[2];
             
@@ -148,7 +141,6 @@ namespace GladanCRUD
             boatInfoArr[1] = boat.getBoatLength();
 
             return boatInfoArr;
-
         }
     }
 }

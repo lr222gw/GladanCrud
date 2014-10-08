@@ -10,8 +10,8 @@ namespace GladanCRUD
     {
         static void Main(string[] args)
         {
-            NavigationController navController = new NavigationController();
-            navController.doNavigate();
+            MenuController menuController = new MenuController();
+            menuController.doMenu();
         }
     }
 }

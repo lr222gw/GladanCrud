@@ -22,7 +22,7 @@ namespace GladanCRUD
 
             Console.Clear();
             Console.Out.WriteLine("Registrera medlem");
-            Console.Out.WriteLine("==========================================="); //vyn presenterar hur man lägger till
+            Console.Out.WriteLine("===========================================");
             
             Console.Out.Write("Ange Förnamn: ");
             userDataArr[0] = Console.ReadLine();
@@ -43,103 +43,51 @@ namespace GladanCRUD
             Console.ReadLine();
         }
 
-        public void showAllUsers() //REMOVE OR REBUILD
+        //public void showAllUsers() //REMOVE OR REBUILD
+        //{
+        //    Console.Clear();
+        //    showMembersOfList(this.memberList.memberList);
+        //}
+
+        public void showCompactList(List<MemberModel> membersList)
         {
             Console.Clear();
-            showMembersOfList(this.memberList.memberList);
-        }
-
-        public void showMembersList()
-        {
-            Console.Clear();
-            Console.Out.WriteLine("Medlemslista");
-            Console.Out.WriteLine("==============================================");
-            Console.Out.WriteLine("MedlemsID   Namn                  Personnummer");
-            Console.Out.WriteLine("----------------------------------------------");
-
-            int listSize = this.memberList.memberList.Count();
-
-            for (int i = 0; i < listSize; i++)
-                Console.Out.WriteLine("{0,5}       {1,-20} {2,13}", memberList.memberList[i].getThisMemberId(), memberList.memberList[i].getUserFirstName()
-                                      + " " + memberList.memberList[i].getUserLastName(), memberList.memberList[i].getSocialSecurityNumber());
-
-            Console.Out.WriteLine("==============================================");
-        }
-
-        //----------------------------------------------------------------Gör eventuellt om så att en befintlig listning nyttjas. Antingen showMembersList eller showCompactList
-        public void showBoatOwnersList(List<MemberModel>boatOwners)
-        {
-            Console.Clear();
-            Console.Out.WriteLine("Båtägarlista");
-            Console.Out.WriteLine("==============================================");
-            Console.Out.WriteLine("MedlemsID   Namn                  Personnummer");
-            Console.Out.WriteLine("----------------------------------------------");
-
-            int listSize = boatOwners.Count();
-
-            for (int i = 0; i < listSize; i++)
-                Console.Out.WriteLine("{0,5}       {1,-20} {2,13}", boatOwners[i].getThisMemberId(), boatOwners[i].getUserFirstName()
-                                      + " " + boatOwners[i].getUserLastName(), boatOwners[i].getSocialSecurityNumber());
-
-            Console.Out.WriteLine("==============================================");
-        }
-        //---------------------------------------------------------------
-
-        public void showMemberBoatsList(List<BoatModel> boatList)
-        {
-            Console.Clear();
-            Console.Out.WriteLine("Båtlista");
-            Console.Out.WriteLine("==============================");
-            Console.Out.WriteLine("RadID   Båttyp           Längd");
-            Console.Out.WriteLine("------------------------------");
-
-            int listSize = boatList.Count();
-
-            for (int i = 0; i < listSize; i++)
-                Console.Out.WriteLine("{0,3}     {1,-12}   {2,6}", i, boatList[i].getBoatTypeString(), boatList[i].getBoatLength());
-
-            Console.Out.WriteLine("==============================");
-        }
-        
-        public void showCompactList()
-        {
-            Console.Clear();
-            Console.Out.WriteLine("Lista medlemmar - Kompakt");
+            Console.Out.WriteLine("Medlemslista - Kompakt");
             Console.Out.WriteLine("========================================");
             Console.Out.WriteLine("MedlemsID   Namn             Antal båtar");
             Console.Out.WriteLine("----------------------------------------");
-            
-            int listSize = this.memberList.memberList.Count();
+
+            int listSize = membersList.Count();
 
             for (int i = 0; i < listSize; i++)
-                Console.Out.WriteLine("{0,5}       {1,-20} {2,2}", memberList.memberList[i].getThisMemberId(), memberList.memberList[i].getUserFirstName()
-                                      + " " + memberList.memberList[i].getUserLastName(), memberList.memberList[i].getBoatListOfUser().Count());
+                Console.Out.WriteLine("{0,5}       {1,-20} {2,2}", membersList[i].getThisMemberId(), membersList[i].getUserFirstName()
+                                      + " " + membersList[i].getUserLastName(), membersList[i].getBoatListOfUser().Count());
 
             Console.Out.WriteLine("========================================");
             Console.Out.Write("Tryck 'ENTER' för att återgå till menyn");
             Console.In.ReadLine();
         }
-
-        public void showDetailedList()
+        
+        public void showDetailedList(List<MemberModel> membersList, string listTitle)
         {
             Console.Clear();
-            Console.Out.WriteLine("Lista medlemmar - Fullständig");
+            Console.Out.WriteLine(listTitle);
             Console.Out.WriteLine("==========================================================================");
             Console.Out.WriteLine("MedlemsID   Namn                   Personnummer   Båttyp          Längd(m)");
             Console.Out.WriteLine("--------------------------------------------------------------------------");
 
-            int listSize = this.memberList.memberList.Count();
+            int listSize = membersList.Count();
 
             for (int i = 0; i < listSize; i++)
             {
-                Console.Out.Write("{0,5}       {1,-20}   {2,-15}", memberList.memberList[i].getThisMemberId(), memberList.memberList[i].getUserFirstName()
-                                      + " " + memberList.memberList[i].getUserLastName(), memberList.memberList[i].getSocialSecurityNumber());
+                Console.Out.Write("{0,5}       {1,-20}   {2,-15}", membersList[i].getThisMemberId(), membersList[i].getUserFirstName()
+                                          + " " + membersList[i].getUserLastName(), membersList[i].getSocialSecurityNumber());
 
-                List<BoatModel> boatList = memberList.memberList[i].getBoatListOfUser();
+                List<BoatModel> boatList = membersList[i].getBoatListOfUser();
                 int numberOfBoats = boatList.Count();
 
-                if(numberOfBoats > 0)
-                { 
+                if (numberOfBoats > 0)
+                {
                     for (int j = 0; j < numberOfBoats; j++)
                     {
                         if (j > 0)
@@ -158,7 +106,39 @@ namespace GladanCRUD
             Console.Out.Write("Tryck 'ENTER' för att återgå till menyn");
             Console.In.ReadLine();
         }
+                        
+        public void showMembersList(List<MemberModel> members, string listTitle = "Medlemmar")
+        {
+            Console.Clear();
+            Console.Out.WriteLine(listTitle);
+            Console.Out.WriteLine("==================================");
+            Console.Out.WriteLine("MedlemsID   Namn                  ");
+            Console.Out.WriteLine("----------------------------------");
 
+            int listSize = members.Count();
+
+            for (int i = 0; i < listSize; i++)
+                Console.Out.WriteLine("{0,5}       {1,-20}",members[i].getThisMemberId(), members[i].getUserFirstName() + " " + members[i].getUserLastName());
+
+            Console.Out.WriteLine("==================================");
+        }
+
+        public void showMemberBoatsList(List<BoatModel> boatList)
+        {
+            Console.Clear();
+            Console.Out.WriteLine("Medlemmens båtar");
+            Console.Out.WriteLine("==============================");
+            Console.Out.WriteLine("RadID   Båttyp           Längd");
+            Console.Out.WriteLine("------------------------------");
+
+            int listSize = boatList.Count();
+
+            for (int i = 0; i < listSize; i++)
+                Console.Out.WriteLine("{0,3}     {1,-12}   {2,6}", i, boatList[i].getBoatTypeString(), boatList[i].getBoatLength());
+
+            Console.Out.WriteLine("==============================");
+        }
+        
         public int getUserID(string message) // Sammanfoga med getUserInput eller generalisera???
         {
             Console.Out.Write(message);
@@ -181,7 +161,7 @@ namespace GladanCRUD
         {
         }
         
-        public void showNavigation()
+        public void showMenu()
         {
             Console.Clear();
             Console.WriteLine("Gladan CRUD");
