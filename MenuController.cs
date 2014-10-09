@@ -14,7 +14,7 @@ namespace GladanCRUD
         public MenuController()
         {
             this.list = new MemberListModel();
-            this.view = new View(); 
+            this.view = new View();//this.list); 
         }
 
         // Show main menu and get user choice
@@ -30,7 +30,7 @@ namespace GladanCRUD
                 {
                     input = this.view.getUserChoice("Ange menyalternativ: ");
 
-                    if (input >= 0 && input <= 9)
+                    if (input >= 0 && input <= 9)// 0->9 = meny alternativ
                         break;
                     
                     this.view.showIllegalInputMessage();
@@ -48,7 +48,8 @@ namespace GladanCRUD
             string[] userInfo = this.view.getNewUserInformation();
 
             // Skapa ny medlem och lägg till i MemberList
-            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.getUniqueId()));                   // list.newestId +=1)); //this.list.saveNewestId();
+            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.newestId +=1));  //list.getUniqueId()));
+            this.list.saveNewestId();
 
             // Visa bekräftelse
             this.view.confirm("Medlemmen är tillagd, tryck 'ENTER' för att fortsätta...");
@@ -200,7 +201,7 @@ namespace GladanCRUD
 
             do
             {
-                boatId = this.view.getUserChoice("Ange BåtID: ");
+                boatId = this.view.getUserChoice("Ange RadID: ");
 
                 if (boatId >= 1 && boatId <= boatListSize)
                     return boatId;
@@ -211,7 +212,8 @@ namespace GladanCRUD
         
         // Ta bort båt
         public void removeBoat() {
-
+            //TODO: bryt ut till båtens radid funktion..
+            
             // Hämta vilken båtägare det gäller
             MemberModel member = getBoatOwnerIdFromUser();
 
@@ -234,6 +236,8 @@ namespace GladanCRUD
         // Uppdatera båtinformation
         private void changeBoatDetails()
         {
+            //TODO: bryt ut till båtens radid funktion..
+
             // Hämta vilken båtägare det gäller
             MemberModel member = getBoatOwnerIdFromUser();
 

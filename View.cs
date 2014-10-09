@@ -9,6 +9,13 @@ namespace GladanCRUD
 {
     class View
     {
+
+        //MemberListModel list;
+
+        //public View(MemberListModel List) {
+        //    this.list = List;
+        //}
+
         // Displays main menu
         public void showMenu()
         {
@@ -125,6 +132,7 @@ namespace GladanCRUD
         // Returns a numeric menu value
         public int getUserChoice(string message)
         {
+            //TODO: Escape funktion
             Console.Out.Write(message);
 
             int input;
@@ -140,10 +148,11 @@ namespace GladanCRUD
         // Returns a numeric menu value
         public string getUserInput(string regexPattern)                                                            // Not fully implemented yet
         {
-            string input = Console.In.ReadLine();
+            string input = Console.In.ReadLine().Trim();            
 
             if (Regex.IsMatch(input, regexPattern))
                 return input;
+
 
             showIllegalInputMessage();
 
@@ -154,7 +163,7 @@ namespace GladanCRUD
         // Displays an errormessage when user input is invalid
         public void showIllegalInputMessage()
         {
-            Console.Out.WriteLine("Ogiltigt inamatning. Försök igen. ");
+            Console.Out.WriteLine("Ogiltigt inmatning. Försök igen. ");
         }
 
         // Collect new user information
@@ -167,10 +176,10 @@ namespace GladanCRUD
             Console.Out.WriteLine("===========================================");
 
             Console.Out.Write("Ange Förnamn: ");
-            userDataArr[0] = getUserInput("^([a-ö, A-Ö, -])*$"); // Felaktig regex
+            userDataArr[0] = getUserInput("^[a-ö,A-Ö, ,-]+$");
 
             Console.Out.Write("Ange Efternamn: ");
-            userDataArr[1] = getUserInput("^([a-ö, A-Ö, -])*$"); // Felaktig regex
+            userDataArr[1] = getUserInput("^[a-ö,A-Ö, ,-]+$"); 
 
             Console.Out.Write("Ange Personnummer(ÅÅMMDD-XXXX): ");
             userDataArr[2] = getUserInput("^\\d{6}-\\d{4}$");
@@ -193,15 +202,15 @@ namespace GladanCRUD
             
             Console.Out.WriteLine("\nFörnamn: " + userData[0]);
             Console.Out.Write("Nytt Förnamn: ");
-            updatedUserData[0] = Console.ReadLine().Trim();
+            updatedUserData[0] = getUserInput("^[a-ö,A-Ö, ,-]*$");
             
             Console.Out.WriteLine("\nEfternamn: " + userData[1]);
             Console.Out.Write("Nytt Efteramn: ");
-            updatedUserData[1] = Console.ReadLine().Trim();
+            updatedUserData[1] = getUserInput("^[a-ö,A-Ö, ,-]*$"); 
             
             Console.Out.WriteLine("\nPersonnummer: " + userData[2]);
             Console.Out.Write("Nytt Personnummer: ");
-            updatedUserData[2] = Console.ReadLine().Trim();
+            updatedUserData[2] = getUserInput("^(\\d{6}-\\d{4})*$");
             
             //SendKeys.SendWait("hello");
             //SendKeys

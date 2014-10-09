@@ -10,13 +10,16 @@ namespace GladanCRUD
 {
     class MemberListModel
     {
-        public List<MemberModel> memberList;                                                        //public int newestId; //const string newestIdFile = @"NewestId.bin";
+        public List<MemberModel> memberList;                                                        
         const string FileName = @"Members.bin";
+        public int newestId;
+        const string newestIdFile = @"NewestId.bin";
 
         public MemberListModel()
         {
             this.memberList = new List<MemberModel>();
-            this.loadMemberList();                                                                  //this.loadNewestId();
+            this.loadMemberList();       
+            this.loadNewestId();
         }
 
         public void addMember(MemberModel member)
@@ -79,31 +82,33 @@ namespace GladanCRUD
             serializer.Serialize(TestFileStream, this.memberList);
             TestFileStream.Close();
         }
-    }
+        public void saveNewestId()
+        {
+            Stream TestFileStream = File.Create(newestIdFile);
+            BinaryFormatter serializer = new BinaryFormatter();
+            serializer.Serialize(TestFileStream, this.newestId);
+            TestFileStream.Close();
+        }
+
+        public void loadNewestId()
+        {
+            if (File.Exists(newestIdFile))
+            {
+                Stream TestFileStream = File.OpenRead(newestIdFile);
+                BinaryFormatter deserializer = new BinaryFormatter();
+                this.newestId = (int)deserializer.Deserialize(TestFileStream);
+                TestFileStream.Close();
+            }
+            else
+            {
+                Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som id ska sparas i finns inte");
+            }
+        }
+    }        
 }
 
 
-//public void saveNewestId()
-//{
-//    Stream TestFileStream = File.Create(newestIdFile);
-//    BinaryFormatter serializer = new BinaryFormatter();
-//    serializer.Serialize(TestFileStream, this.newestId);
-//    TestFileStream.Close();
-//}
-//public void loadNewestId()
-//{
-//    if (File.Exists(newestIdFile))
-//    {
-//        Stream TestFileStream = File.OpenRead(newestIdFile);
-//        BinaryFormatter deserializer = new BinaryFormatter();
-//        this.newestId = (int)deserializer.Deserialize(TestFileStream);
-//        TestFileStream.Close();
-//    }
-//    else
-//    {
-//        Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som id ska sparas i finns inte");
-//    }
-//}
+
 
 
 //private int getUserPositionFromList(int id)
