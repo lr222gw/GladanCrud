@@ -14,8 +14,32 @@ namespace GladanCRUD
 
         public BoatModel(BoatType boatType, int length)
         {
-            this.boatType = boatType;
-            this.length = length;
+            setBoatType(boatType);
+            setBoatLength(length);
+        }
+        private void setBoatType(BoatType boatType)
+        {
+            if (Enum.IsDefined(typeof(BoatType), boatType))
+            {
+                this.boatType = boatType;
+            }
+            else
+            {
+                throw new Exception("Invalid BoatType");
+            }
+            
+        }
+
+        private void setBoatLength(int length)
+        {
+            if (length >= 1)
+            {
+                this.length = length;
+            }
+            else
+            {
+                throw new Exception("Invalid Length");
+            }
         }
      
         public BoatType getBoatType()
@@ -40,8 +64,8 @@ namespace GladanCRUD
 
         public void updateBoat(int[] newBoatData)
         {
-            this.boatType = (BoatType)newBoatData[0];
-            this.length = newBoatData[1];
+            setBoatType((BoatType)newBoatData[0]);
+            setBoatLength(newBoatData[1]);
         }
     }
 

@@ -28,16 +28,16 @@ namespace GladanCRUD
             this.saveMemberList();
         }
 
-        public int getUniqueId()
-        {
-            int highestId = 0;
+        //public int getUniqueId()
+        //{
+        //    int highestId = 0;
 
-            foreach (MemberModel member in memberList)
-                if (member.getThisMemberId() > highestId)
-                    highestId = member.getThisMemberId();
+        //    foreach (MemberModel member in memberList)
+        //        if (member.getThisMemberId() > highestId)
+        //            highestId = member.getThisMemberId();
 
-            return highestId + 1;
-        }
+        //    return highestId + 1;
+        //}
 
         public MemberModel getUserFromList(int memberId)
         {
@@ -71,7 +71,7 @@ namespace GladanCRUD
             }
             else
             {
-                Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som allt ska sparas i finns inte"); // REMOVE
+                throw new Exception("Nu blev det något fel, hörru. Filen som allt ska sparas i finns inte");
             }
         }
 
@@ -101,7 +101,7 @@ namespace GladanCRUD
             }
             else
             {
-                Console.Out.WriteLine("Nu blev det något fel, hörru. Filen som id ska sparas i finns inte");
+                throw new Exception("Nu blev det något fel, hörru. Filen som allt ska sparas i finns inte");                
             }
         }
     }        

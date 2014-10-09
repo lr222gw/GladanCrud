@@ -221,37 +221,60 @@ namespace GladanCRUD
             return updatedUserData;
         }
 
-        public int[] updateAndReturnBoatData(int[] boatData)
+        public void presentBoatChangeView()
         {
-            int[] updatedBoatData = new int[2];
-
-            //Hämtar ny data
+            Console.Clear();
             Console.Out.WriteLine("Ändra båtens uppgifter, lämnna tomt för att ignorera ändring");
-
-            //Hämtar ny båttyp
-            Console.Out.WriteLine("Båttyp (ange siffra) \nDin nuvarande typ är:" + (BoatType)boatData[0] + "\n");
             showListOfBoatTypes();
-            string typeInput = Console.ReadLine();
-            if (typeInput == "")
-            {
-                updatedBoatData[0] = -1;
-            }
-            else { updatedBoatData[0] = int.Parse(typeInput); }
+        }
 
-            //Hämtar ny båtlängd
-            Console.Out.WriteLine("Längd: " + boatData[1]);
-            string lengthInput = Console.ReadLine();
-            if (lengthInput == "")
-            {
-                updatedBoatData[1] = -1;
-            }
-            else { updatedBoatData[1] = int.Parse(lengthInput); }
+        public int updateBoatType(int currentBoatType)
+        {            
+            Console.Out.WriteLine("Båttyp (ange siffra) \nDin nuvarande typ är:" + (BoatType)currentBoatType + "\n");
+            
 
-            //kontrollerar input
-            updatedBoatData = validateIfInputIsEmptyINT(updatedBoatData, boatData);
-            //returnerar
+            int updatedBoatData = validateIfInputIsEmptyINT(getUserChoice("Ange ny båttyp: "), currentBoatType);
             return updatedBoatData;
         }
+        public int updateBoatLength(int currentBoatLength)
+        {
+            Console.Out.WriteLine("\nBåtlängd \nDin nuvarande längd är:" + currentBoatLength + "m\n");            
+
+            int updatedBoatData = validateIfInputIsEmptyINT(getUserChoice("Ange ny båtlängd: "), currentBoatLength);
+            return updatedBoatData;
+        }
+
+        //public int[] updateAndReturnBoatData(int[] boatData)
+        //{
+        //    int[] updatedBoatData = new int[2];
+
+        //    //Hämtar ny data
+        //    Console.Out.WriteLine("Ändra båtens uppgifter, lämnna tomt för att ignorera ändring");
+
+        //    //Hämtar ny båttyp
+        //    Console.Out.WriteLine("Båttyp (ange siffra) \nDin nuvarande typ är:" + (BoatType)boatData[0] + "\n");
+        //    showListOfBoatTypes();
+        //    string typeInput = Console.ReadLine();
+        //    if (typeInput == "")
+        //    {
+        //        updatedBoatData[0] = -1;
+        //    }
+        //    else { updatedBoatData[0] = int.Parse(typeInput); }
+
+        //    //Hämtar ny båtlängd
+        //    Console.Out.WriteLine("Längd: " + boatData[1]);
+        //    string lengthInput = Console.ReadLine();
+        //    if (lengthInput == "")
+        //    {
+        //        updatedBoatData[1] = -1;
+        //    }
+        //    else { updatedBoatData[1] = int.Parse(lengthInput); }
+
+        //    //kontrollerar input
+        //    updatedBoatData = validateIfInputIsEmptyINT(updatedBoatData, boatData);
+        //    //returnerar
+        //    return updatedBoatData;
+        //}
         
         public string[] validateIfInputIsEmptySTRING (string[] updatedData, string[] dataToCheckAgainst)
         {
@@ -271,20 +294,29 @@ namespace GladanCRUD
             
             return updatedData;
         }
-
-        public int[] validateIfInputIsEmptyINT(int[] updatedData, int[] dataToCheckAgainst)
+        public int validateIfInputIsEmptyINT(int updatedData, int dataToCheckAgainst)
         {
-            if (updatedData[0] == -1)
+            if (updatedData == -1)
             {
-                updatedData[0] = dataToCheckAgainst[0];
+                updatedData = dataToCheckAgainst;
             }
-            if (updatedData[1] == -1)
-            {
-                updatedData[1] = dataToCheckAgainst[1];
-            }
-
+           
             return updatedData;
         }
+
+        //public int[] validateIfInputIsEmptyINT(int[] updatedData, int[] dataToCheckAgainst)
+        //{
+        //    if (updatedData[0] == -1)
+        //    {
+        //        updatedData[0] = dataToCheckAgainst[0];
+        //    }
+        //    if (updatedData[1] == -1)
+        //    {
+        //        updatedData[1] = dataToCheckAgainst[1];
+        //    }
+
+        //    return updatedData;
+        //}
 
         public void showListOfBoatTypes()
         {

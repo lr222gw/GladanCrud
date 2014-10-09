@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GladanCRUD
@@ -17,11 +18,64 @@ namespace GladanCRUD
 
         public MemberModel(string firstName, string lastName, string socialSecurityNumber, int uniqueId)
         {
-            this.memberID = uniqueId;
+            setThisMemberId(uniqueId);      
             this.firstName = firstName;
             this.lastName = lastName;
             this.socialSecurityNumber = socialSecurityNumber;
             this.boatList = new List<BoatModel>();
+        }
+        private void setThisMemberId(int memberID)
+        {
+            if (memberID > 0)
+            {
+                this.memberID = memberID;
+            }
+            else
+            {
+                throw new Exception("Invalid MemberID...");
+            }
+            
+        }
+
+        private bool validateName(string name)
+        {
+            return (Regex.IsMatch(name, "^[a-ö,A-Ö, ,-]+$"));    
+        }
+
+        private void setUserFirstName(string firstName)
+        {
+            if(validateName(firstName)){
+                this.firstName = firstName;
+            }
+            else
+            {
+                throw new Exception("Invalid firstName...");
+            }           
+        }
+
+        private void setUserLastName(string lastName)
+        {
+            if (validateName(lastName))
+            {
+                this.lastName = lastName;
+            }
+            else
+            {
+                throw new Exception("Invalid lastName...");
+            }  
+        }
+
+        private void setSocialSecurityNumber(string socialSecurityNumber)
+        {
+            if (Regex.IsMatch(socialSecurityNumber, "^\\d{6}-\\d{4}$"))
+            {
+                this.socialSecurityNumber = socialSecurityNumber;
+            }
+            else
+            {
+                throw new Exception("Invalid setSocialSecurityNumber...");
+            }
+            
         }
 
         public int getThisMemberId()
@@ -57,9 +111,9 @@ namespace GladanCRUD
 
         public void updateMember(string[] newData)
         {
-            this.firstName = newData[0];
-            this.lastName = newData[1];
-            this.socialSecurityNumber = newData[2];
+            setUserFirstName(newData[0]);
+            setUserLastName(newData[1]);
+            setSocialSecurityNumber(newData[2]);            
         }
 
         public void addBoat(BoatModel boat)

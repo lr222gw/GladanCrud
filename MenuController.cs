@@ -68,6 +68,9 @@ namespace GladanCRUD
                     if (member.getThisMemberId() == input)
                         return input;
 
+                if(input == -1){
+
+                }
                 this.view.showIllegalInputMessage();
             } while (true);
         }
@@ -236,8 +239,6 @@ namespace GladanCRUD
         // Uppdatera båtinformation
         private void changeBoatDetails()
         {
-            //TODO: bryt ut till båtens radid funktion..
-
             // Hämta vilken båtägare det gäller
             MemberModel member = getBoatOwnerIdFromUser();
 
@@ -250,12 +251,42 @@ namespace GladanCRUD
             // Hämta båt baserat på radId
             BoatModel boat = member.getBoatByIndex(rowId - 1);
 
-            // Hämta befintliga uppgifter
+            // Hämta befintliga uppgifter, Redigera och visa båttyp och längd
             int[] boatInfoArr = boat.getBoatInfo();
 
-            // Redigera och visa båttyp och längd
-            boatInfoArr = this.view.updateAndReturnBoatData(boatInfoArr);
-                
+            int enumSize = Enum.GetNames(typeof(BoatType)).Length;
+
+            int newBoatType;
+
+            view.presentBoatChangeView();
+
+            do
+            {
+                newBoatType = view.updateBoatType(boatInfoArr[0]);
+
+                if (newBoatType > 0 && newBoatType <= enumSize)
+                    break;
+
+                this.view.showIllegalInputMessage();
+            } while (true);
+
+            //boatInfoArr = this.view.updateAndReturnBoatData(boatInfoArr);
+            int newBoatLength;
+
+            do
+            {
+                newBoatLength = this.view.updateBoatLength(boatInfoArr[1]);
+
+                if (newBoatLength > 0)
+                    break;
+
+                this.view.showIllegalInputMessage();
+            } while (true);
+            
+            //updaterar array
+            boatInfoArr[0] = newBoatType;
+            boatInfoArr[1] = newBoatLength;
+
             // Uppdatera båtinformation
             boat.updateBoat(boatInfoArr);
             
