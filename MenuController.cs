@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GladanCRUD.view;
+using GladanCRUD.model;
 
-namespace GladanCRUD
+namespace GladanCRUD.controller
 {
     class MenuController
     {
@@ -14,7 +16,7 @@ namespace GladanCRUD
         public MenuController()
         {
             this.list = new MemberListModel();
-            this.view = new View();//this.list); 
+            this.view = new View();
         }
 
         // Show main menu and get user choice
@@ -68,9 +70,6 @@ namespace GladanCRUD
                     if (member.getThisMemberId() == input)
                         return input;
 
-                if(input == -1){
-                    return -1;
-                }
                 this.view.showIllegalInputMessage();
             } while (true);
         }
@@ -270,7 +269,6 @@ namespace GladanCRUD
                 this.view.showIllegalInputMessage();
             } while (true);
 
-            //boatInfoArr = this.view.updateAndReturnBoatData(boatInfoArr);
             int newBoatLength;
 
             do
@@ -354,17 +352,3 @@ namespace GladanCRUD
         }
     }
 }
-
-
-
-
-////ta bort användarens gamla data
-//this.list.deleteUserById(input); //TODO: Obs MedlemsId/nummer blir nytt, ska det vara så? 
-//                                // ersätta istä'llet gamla värden med de nya? istället för att ta bort.
-
-//bygg den nya användaren
-//TODO: ÄNDRA!!!! //MemberModel editedUserToAdd = new MemberModel(updatedUserData[0],updatedUserData[1],updatedUserData[2]);
-//lägg till nya datan            
-//TODO: ÄNDRA!!! //this.list.addMember(editedUserToAdd);
-
-//DONE! :D

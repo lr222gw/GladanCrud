@@ -4,18 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using GladanCRUD.model;
 
-namespace GladanCRUD
+namespace GladanCRUD.view
 {
     class View
     {
-
-        //MemberListModel list;
-
-        //public View(MemberListModel List) {
-        //    this.list = List;
-        //}
-
         // Displays main menu
         public void showMenu()
         {
@@ -132,7 +126,6 @@ namespace GladanCRUD
         // Returns a numeric menu value
         public int getUserChoice(string message)
         {
-            //TODO: Escape funktion
             Console.Out.Write(message);
 
             int input;
@@ -146,13 +139,12 @@ namespace GladanCRUD
         }
 
         // Returns a numeric menu value
-        public string getUserInput(string regexPattern)                                                            // Not fully implemented yet
+        public string getUserInput(string regexPattern)
         {
             string input = Console.In.ReadLine().Trim();            
 
             if (Regex.IsMatch(input, regexPattern))
                 return input;
-
 
             showIllegalInputMessage();
 
@@ -183,8 +175,6 @@ namespace GladanCRUD
 
             Console.Out.Write("Ange Personnummer(ÅÅMMDD-XXXX): ");
             userDataArr[2] = getUserInput("^\\d{6}-\\d{4}$");
-            
-            //userDataArr[2] = Console.ReadLine();
 
             return userDataArr;
         }
@@ -212,12 +202,8 @@ namespace GladanCRUD
             Console.Out.Write("Nytt Personnummer: ");
             updatedUserData[2] = getUserInput("^(\\d{6}-\\d{4})*$");
             
-            //SendKeys.SendWait("hello");
-            //SendKeys
-            //Console.In.Read();
-            //Console.Out.Write(userData[0]);            
-            //Om datan som angivits är av längden 0 så ska den gamla datan användas.
             updatedUserData = validateIfInputIsEmptySTRING(updatedUserData, userData);
+       
             return updatedUserData;
         }
 
@@ -231,9 +217,9 @@ namespace GladanCRUD
         public int updateBoatType(int currentBoatType)
         {            
             Console.Out.WriteLine("Båttyp (ange siffra) \nDin nuvarande typ är:" + (BoatType)currentBoatType + "\n");
-            
 
             int updatedBoatData = validateIfInputIsEmptyINT(getUserChoice("Ange ny båttyp: "), currentBoatType);
+
             return updatedBoatData;
         }
         public int updateBoatLength(int currentBoatLength)
@@ -241,41 +227,10 @@ namespace GladanCRUD
             Console.Out.WriteLine("\nBåtlängd \nDin nuvarande längd är:" + currentBoatLength + "m\n");            
 
             int updatedBoatData = validateIfInputIsEmptyINT(getUserChoice("Ange ny båtlängd: "), currentBoatLength);
+            
             return updatedBoatData;
         }
-
-        //public int[] updateAndReturnBoatData(int[] boatData)
-        //{
-        //    int[] updatedBoatData = new int[2];
-
-        //    //Hämtar ny data
-        //    Console.Out.WriteLine("Ändra båtens uppgifter, lämnna tomt för att ignorera ändring");
-
-        //    //Hämtar ny båttyp
-        //    Console.Out.WriteLine("Båttyp (ange siffra) \nDin nuvarande typ är:" + (BoatType)boatData[0] + "\n");
-        //    showListOfBoatTypes();
-        //    string typeInput = Console.ReadLine();
-        //    if (typeInput == "")
-        //    {
-        //        updatedBoatData[0] = -1;
-        //    }
-        //    else { updatedBoatData[0] = int.Parse(typeInput); }
-
-        //    //Hämtar ny båtlängd
-        //    Console.Out.WriteLine("Längd: " + boatData[1]);
-        //    string lengthInput = Console.ReadLine();
-        //    if (lengthInput == "")
-        //    {
-        //        updatedBoatData[1] = -1;
-        //    }
-        //    else { updatedBoatData[1] = int.Parse(lengthInput); }
-
-        //    //kontrollerar input
-        //    updatedBoatData = validateIfInputIsEmptyINT(updatedBoatData, boatData);
-        //    //returnerar
-        //    return updatedBoatData;
-        //}
-        
+       
         public string[] validateIfInputIsEmptySTRING (string[] updatedData, string[] dataToCheckAgainst)
         {
            
@@ -304,20 +259,6 @@ namespace GladanCRUD
             return updatedData;
         }
 
-        //public int[] validateIfInputIsEmptyINT(int[] updatedData, int[] dataToCheckAgainst)
-        //{
-        //    if (updatedData[0] == -1)
-        //    {
-        //        updatedData[0] = dataToCheckAgainst[0];
-        //    }
-        //    if (updatedData[1] == -1)
-        //    {
-        //        updatedData[1] = dataToCheckAgainst[1];
-        //    }
-
-        //    return updatedData;
-        //}
-
         public void showListOfBoatTypes()
         {
             int enumSize = Enum.GetNames(typeof(BoatType)).Length;
@@ -345,82 +286,3 @@ namespace GladanCRUD
         }
     }
 }
-
-//public void getUpdatedMemberInfo(string memberName, string socialSecurityNumber)
-//{
-//}
-
-//public void showMembersOfList(List<MemberModel> ListToBeShown)
-//{
-//    Console.Clear();
-//    for (int i = 0; i < ListToBeShown.Count(); i++)
-//    {
-//        Console.Out.WriteLine(ListToBeShown[i].toString());
-//    }
-//}
-
-//internal void listMembersBoats(List<BoatModel> memberBoatList)
-//{
-//    Console.Clear();
-//    for (int i = 0; i < memberBoatList.Count; i++)
-//    {
-//        Console.WriteLine(i + ": " + memberBoatList[i].toString());
-//    }
-
-//}
-//public int getUserID(string message) // Sammanfoga med getUserInput eller generalisera???
-//{
-//    Console.Out.Write(message);
-//    string input = Console.ReadLine();
-
-//    if (Regex.IsMatch(input, "^[0-9]+"))
-//    {
-//        return int.Parse(input);
-//    }
-//    else
-//    {
-//        Console.Out.WriteLine("Måste ange ett korrekt värde");
-//        getUserID(message);
-//    }
-
-//    return 0;
-//}
-
-//public BoatType getNewBoatType()
-//{
-//    Console.Clear();
-//    Console.Out.WriteLine("Registrera ny båt");
-//    Console.Out.WriteLine("=========================");
-
-//    showListOfBoatTypes();
-
-//    return (BoatType)Enum.Parse(typeof(BoatType), Enum.GetName(typeof(BoatType), getUserInput())); //getUserInput // Ändra så att int returneras och kollen görs i modellen
-//}
-
-//public int getNewBoatLength()
-//{
-//    Console.Out.Write("Ange båtens längd(m): ");
-
-//    return getUserInput();                                                                        //getUserInput
-//}
-
-//public int getUserInput()
-//{
-//    //string input = Console.ReadLine();
-//    //if (input) //TODO: gör säkerhetskollar...
-//    //{
-
-//    //}
-//    string input = Console.ReadLine();
-//    if (Regex.IsMatch(input, "^[0-9]+"))
-//    {
-//        return int.Parse(input);
-//    }
-//    else
-//    {
-//        Console.Out.WriteLine("Måste ange ett korrekt värde");
-//        getUserInput();
-//    }
-
-//    return 0;
-//}

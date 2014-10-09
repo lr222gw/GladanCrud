@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GladanCRUD
+namespace GladanCRUD.model
 {
     [Serializable]
     class BoatModel
@@ -27,7 +27,6 @@ namespace GladanCRUD
             {
                 throw new Exception("Invalid BoatType");
             }
-            
         }
 
         private void setBoatLength(int length)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-namespace GladanCRUD
+namespace GladanCRUD.model
 {
     class MemberListModel
     {
@@ -27,17 +27,6 @@ namespace GladanCRUD
             this.memberList.Add(member);
             this.saveMemberList();
         }
-
-        //public int getUniqueId()
-        //{
-        //    int highestId = 0;
-
-        //    foreach (MemberModel member in memberList)
-        //        if (member.getThisMemberId() > highestId)
-        //            highestId = member.getThisMemberId();
-
-        //    return highestId + 1;
-        //}
 
         public MemberModel getUserFromList(int memberId)
         {
@@ -106,60 +95,3 @@ namespace GladanCRUD
         }
     }        
 }
-
-
-
-
-
-//private int getUserPositionFromList(int id)
-//{
-//    for (int i = 0; i < this.memberList.Count(); i++)
-//    {
-//        if (this.memberList[i].getThisMemberId() == id)
-//        {
-//            return i;
-//        }
-//    }
-
-//    return -1;
-//}
-
-//public void deleteUserById(int input)
-//{
-//    //Denna måste fixas, RemoveAt baserar sig på arrayensplats, (array börjar på 0...) 
-//    //Vi anger IDt istället, vi räknar id från 1... så användare med ID 4 ligger på plats 3 i arrayen. 
-//    //Om vi anger att vi vill ta bort användare med id't 4 så kommer vi försöka ta bort den 4de platsen i arrayen, vilket som inte finns...
-//    //this.memberList.RemoveAt(this.getUserFromList(input).getThisMemberId());
-//    int positionOfUser = this.getUserPositionFromList(input);
-//    if (positionOfUser != -1) //Säkerhetsspärr, kollar om användaren ej fanns...
-//    {
-//        this.memberList.RemoveAt(positionOfUser); //löste genom att göra ny metod...
-//        this.saveMemberList();
-
-//    }else{
-//        throw new Exception("User by that ID does not exist...");
-//    }
-//}
-
-//public string[] getUserInfoByID(int input)                    // Borde inte denna ligga i MemberModel
-//{
-//    MemberModel member = this.getUserFromList(input);
-
-//    string[] userInfoArr = new string[3];
-
-//    userInfoArr[0] = member.getUserFirstName();
-//    userInfoArr[1] = member.getUserLastName();
-//    userInfoArr[2] = member.getSocialSecurityNumber();
-
-//    return userInfoArr;
-//}
-//public int[] getBoatInfoByID(MemberModel boatOwner, int boatId) // Borde inte denna ligga i MemberModel
-//{
-//    BoatModel boat = boatOwner.getBoatListOfUser()[boatId];
-//    int[] boatInfoArr = new int[2];
-
-//    boatInfoArr[0] = boat.getBoatType();
-//    boatInfoArr[1] = boat.getBoatLength();
-
-//    return boatInfoArr;
-//}

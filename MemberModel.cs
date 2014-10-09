@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace GladanCRUD
+namespace GladanCRUD.model
 {
     [Serializable]
     class MemberModel 
@@ -14,14 +14,14 @@ namespace GladanCRUD
         private string lastName;
         private string socialSecurityNumber;
         private int memberID = 0;
-        private List<BoatModel> boatList;//TODO: FIXA READONLY PÅ ALLA LISTOR!!!
+        private List<BoatModel> boatList;
 
         public MemberModel(string firstName, string lastName, string socialSecurityNumber, int uniqueId)
         {
-            setThisMemberId(uniqueId);      
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.socialSecurityNumber = socialSecurityNumber;
+            setThisMemberId(uniqueId);
+            setUserFirstName(firstName);
+            setUserLastName(lastName);
+            setSocialSecurityNumber(socialSecurityNumber);
             this.boatList = new List<BoatModel>();
         }
         private void setThisMemberId(int memberID)
@@ -34,7 +34,6 @@ namespace GladanCRUD
             {
                 throw new Exception("Invalid MemberID...");
             }
-            
         }
 
         private bool validateName(string name)
@@ -75,7 +74,6 @@ namespace GladanCRUD
             {
                 throw new Exception("Invalid setSocialSecurityNumber...");
             }
-            
         }
 
         public int getThisMemberId()
@@ -132,23 +130,3 @@ namespace GladanCRUD
         }
     }
 }
-
-//private int getUniqueID(int newestId)
-//{
-//    //MemberListModel memberList = new MemberListModel();
-//    //List<int> idList = new List<int>();
-//    //ändra på detta efter filen, saken prylen. duvet
-//    //for (int i = 0; i < memberList.memberList.Count(); i++ )
-//    //{
-//    //    idList.Add(memberList.memberList[i].getThisMemberId());
-//    //}
-
-//    if (memberList.memberList.Count() == 0) {
-//        //om inga användare finns i listan, så ska första angivna ID vara 1...
-//        return 1;
-//    }
-//    //
-
-//    return idList.Max()+1;
-
-//}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GladanCRUD.controller;
 
 namespace GladanCRUD
 {
@@ -10,8 +11,8 @@ namespace GladanCRUD
     {
         static void Main(string[] args)
         {
-            MenuController menuController = new MenuController();
-            menuController.doMenu();
+            MenuController mC = new MenuController();
+            mC.doMenu();
         }
     }
 }
