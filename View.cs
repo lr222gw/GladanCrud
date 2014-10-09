@@ -151,6 +151,27 @@ namespace GladanCRUD.view
             return getUserInput(regexPattern);
         }
 
+        //--------------------------------------------------------------------------------------------------------------------------
+        public int getUpdatedValue(string message)
+        {
+            Console.Out.Write(message);
+
+            string inputString = Console.In.ReadLine().Trim();
+            
+            if(String.IsNullOrEmpty(inputString))
+                return -1;
+            
+            int input;
+
+            if (int.TryParse(inputString, out input))
+                return input;
+
+            showIllegalInputMessage();
+
+            return getUpdatedValue(message);
+        }
+        //--------------------------------------------------------------------------------------------------------------------------
+
 
         // Displays an errormessage when user input is invalid
         public void showIllegalInputMessage()
@@ -218,7 +239,7 @@ namespace GladanCRUD.view
         {            
             Console.Out.WriteLine("Båttyp (ange siffra) \nDin nuvarande typ är:" + (BoatType)currentBoatType + "\n");
 
-            int updatedBoatData = validateIfInputIsEmptyINT(getUserChoice("Ange ny båttyp: "), currentBoatType);
+            int updatedBoatData = validateIfInputIsEmptyINT(getUpdatedValue("Ange ny båttyp: "), currentBoatType);
 
             return updatedBoatData;
         }
@@ -226,7 +247,7 @@ namespace GladanCRUD.view
         {
             Console.Out.WriteLine("\nBåtlängd \nDin nuvarande längd är:" + currentBoatLength + "m\n");            
 
-            int updatedBoatData = validateIfInputIsEmptyINT(getUserChoice("Ange ny båtlängd: "), currentBoatLength);
+            int updatedBoatData = validateIfInputIsEmptyINT(getUpdatedValue("Ange ny båtlängd: "), currentBoatLength);
             
             return updatedBoatData;
         }
