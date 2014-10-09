@@ -69,7 +69,7 @@ namespace GladanCRUD
                         return input;
 
                 if(input == -1){
-
+                    return -1;
                 }
                 this.view.showIllegalInputMessage();
             } while (true);
