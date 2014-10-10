@@ -24,6 +24,7 @@ namespace GladanCRUD.model
             setSocialSecurityNumber(socialSecurityNumber);
             this.boatList = new List<BoatModel>();
         }
+    
         private void setThisMemberId(int memberID)
         {
             if (memberID > 0)

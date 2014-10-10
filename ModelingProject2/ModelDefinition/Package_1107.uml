@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="4690b941-61e6-40ec-8e11-f9bda89f04c6"
+  name="GladanCRUD"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="6ff23b55-2e69-45e4-a34a-d1132a25c5fd"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DGladanCRUD"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="1338adaa-1337-4858-8a59-f29b0588fd91"
+        name="ApplicationStarter"
+        visibility="Package"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="ae1529ed-f496-4949-8e5f-1a84072c301e"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FD:%2FMina Studier%2FHT2014%2F1DV407 - Objektorienterad analys och design%2FGitHub%2FGladanCrud%2Fbin%2FDebug%2FGladanCRUD.exe&quot; Namespace%3DGladanCRUD Type%3DApplicationStarter"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="e97f28e7-4ba9-4947-aeab-316b835d8207"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="cb840cc3-d1d5-421c-9857-5a651edd816e">
+                <propertyInstance
+                  Id="43b7ca1e-3643-48b4-beac-994b41668e38"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="832e2c2e-3d60-499a-8fda-bee084f8b2e8">
+                <propertyInstance
+                  Id="05ee7597-e28b-421f-9bea-703717b5dcf3"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b6079cbb-2da7-45d2-955d-6d8efd661673">
+                <propertyInstance
+                  Id="d0ba77e4-5926-411d-b492-4f50e9953cd4"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a4cb5d49-83ec-44aa-bbd2-3ce3c13963c4">
+                <propertyInstance
+                  Id="687b4d2d-5247-4259-bd99-feaa916106ad"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="583e812e-37b7-437f-9eab-336ce48ce630">
+                <propertyInstance
+                  Id="77fa6eb3-e117-4bf4-97d2-7ce0da1d5a11"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="1ded69aa-617f-4250-9247-02a3f5cf8185">
+            <classMoniker
+              Id="a3dbef6c-74d7-4304-b8b7-dbccf5322210"
+              LastKnownName="MenuController"
+              LastKnownLocation="Package_1108.uml" />
+          </dependency>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="33dc2523-d3d8-448d-af5a-4f002ecf5c6d"
+            name="Main"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="60fccff3-6ad1-4547-bb93-73b8ca217e2d"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FD:%2FMina Studier%2FHT2014%2F1DV407 - Objektorienterad analys och design%2FGitHub%2FGladanCrud%2Fbin%2FDebug%2FGladanCRUD.exe&quot; Namespace%3DGladanCRUD Type%3DApplicationStarter Member%3D(Name%3DMain OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3D(Name%3DString ArrayRank%3D1 ParentType%3DString))])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="ab12a557-7242-49e5-93ba-c321d33d1d41"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1eabf9e7-843f-4530-8c2d-54a2702e267e">
+                    <propertyInstance
+                      Id="0ef6bc83-a69f-4634-b86d-d8e8380226b6"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fa287129-2d67-4fa8-bc94-d5a49d58ce73">
+                    <propertyInstance
+                      Id="5480dbf3-1c54-4330-b598-f3c5d48f13e4"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="355eb878-5962-45c4-b115-1fb3b14145e4">
+                    <propertyInstance
+                      Id="d2a564d5-5b19-4b1c-b90d-0676c93b4ed5"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a7d326a7-72b6-4cd5-a534-19cabe53be56">
+                    <propertyInstance
+                      Id="56049761-b84c-479f-93b6-801f294e02b8"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="de579ac7-8113-4f84-866b-6935bda451a9">
+                    <propertyInstance
+                      Id="a8e4a124-8fbe-462d-b88e-78299b488ab7"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="15ca3bb9-0c73-4124-a31e-96d29fab4434">
+                    <propertyInstance
+                      Id="127d9000-19f2-4906-9b7e-cf9a04387d2a"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7bd8e14c-ee45-4de4-a7b1-fb1ccceae924"
+                  name="args"
+                  direction="In"
+                  isOrdered="true">
+                  <referencesInternal>
+                    <reference
+                      Id="f86ccf60-9f33-4f86-b90c-5cd4415832d8"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FD:%2FMina Studier%2FHT2014%2F1DV407 - Objektorienterad analys och design%2FGitHub%2FGladanCrud%2Fbin%2FDebug%2FGladanCRUD.exe&quot; Namespace%3DGladanCRUD Type%3DApplicationStarter Member%3D(Name%3DMain OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3D(Name%3DString ArrayRank%3D1 ParentType%3DString))]) ParameterIdentifier%3Dargs"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <lowerValueInternal>
+                    <literalString
+                      Id="611ce580-941f-44ec-8f79-72aa34439828"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="6068b574-bb42-4387-9ca6-6a2531ffaa6d"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ModelingProject2.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="d7dfb862-a665-4fff-821a-ea27c1b641b1"
+            name="ApplicationStarter"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="742af0de-df08-4635-90b2-6334d41955b0"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FD:%2FMina Studier%2FHT2014%2F1DV407 - Objektorienterad analys och design%2FGitHub%2FGladanCrud%2Fbin%2FDebug%2FGladanCRUD.exe&quot; Namespace%3DGladanCRUD Type%3DApplicationStarter Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="dfdb5625-a97e-4bca-8db2-92e5ed4c113d"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="70144a25-0894-49a9-8d9d-b0cb5a2a08da">
+                    <propertyInstance
+                      Id="4e968818-5e65-4188-bcec-ba21daa0281d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="61ad1bab-774a-408c-acaa-aa97db9f5049">
+                    <propertyInstance
+                      Id="9d4811ba-c983-40fe-8db2-e83c09cd6e0b"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8dffdb11-95f7-4657-ae56-e64d6107510b">
+                    <propertyInstance
+                      Id="10e8f97e-2f3b-4194-ba22-a105941b1765"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cdea8537-9618-4efe-9d8a-1204f2fe92e1">
+                    <propertyInstance
+                      Id="5e9fd291-82fc-4ad9-9362-3c85cbdd17de"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e94c1448-cfff-4a92-a886-d726e298c19c">
+                    <propertyInstance
+                      Id="68884810-c327-47b0-b540-2ecca750f421"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="63f8fc0d-06e5-43c8-95ad-eabd1de2a90e">
+                    <propertyInstance
+                      Id="b4aad199-3270-41fe-aef8-2f48a7d85f3b"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="36603b4e-93da-41db-bc12-35b9ff991b42"
+        LastKnownName="controller"
+        LastKnownLocation="Package_1108.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="a7788d98-69a8-48c6-8d12-f84f7b69912b"
+        LastKnownName="model"
+        LastKnownLocation="Package4_1108.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="bd98902b-bf04-4158-90b1-25186770a7ee"
+        LastKnownName="view"
+        LastKnownLocation="Package5_1108.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
