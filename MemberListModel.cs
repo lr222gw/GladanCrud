@@ -10,7 +10,7 @@ namespace GladanCRUD.model
 {
     class MemberListModel
     {
-        public List<MemberModel> memberList;                                                        
+        private List<MemberModel> memberList;                                                        
         const string FileName = @"Members.bin";
         private int newestId;
         const string newestIdFile = @"NewestId.bin";
@@ -22,10 +22,10 @@ namespace GladanCRUD.model
             this.loadNewestId();
         }
 
-        //public List<MemberModel> getMemberList()
-        //{
-        //    return this.memberList;
-        //}
+        public List<MemberModel> getMemberList()
+        {
+            return this.memberList;
+        }
 
         public int getNewestAndUpdateId()
         {
@@ -60,7 +60,7 @@ namespace GladanCRUD.model
             saveMemberList();
         }
 
-        public void loadMemberList()
+        private void loadMemberList()
         {
             if (File.Exists(FileName))
             {
@@ -75,7 +75,7 @@ namespace GladanCRUD.model
             }
         }
 
-        public void saveMemberList()
+        private void saveMemberList()
         {
             Stream TestFileStream = File.Create(FileName);
             BinaryFormatter serializer = new BinaryFormatter();
@@ -90,7 +90,7 @@ namespace GladanCRUD.model
             TestFileStream.Close();
         }
 
-        public void loadNewestId()
+        private void loadNewestId()
         {
             if (File.Exists(newestIdFile))
             {

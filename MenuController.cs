@@ -78,10 +78,10 @@ namespace GladanCRUD.controller
         private void removeUser()
         {
             // Lista användare
-            this.view.showMembersList(this.list.memberList, "Ta bort medlem");
+            this.view.showMembersList(this.list.getMemberList(), "Ta bort medlem");
           
             // Hämta användarens val och ta bort användaren
-            this.list.deleteUserById(getUserChoiceOfMember(this.list.memberList));
+            this.list.deleteUserById(getUserChoiceOfMember(this.list.getMemberList()));
             
             // Visa bekräftelse
             this.view.confirm("Medlemmen borttagen, tryck 'ENTER' för att fortsätta...");
@@ -91,10 +91,10 @@ namespace GladanCRUD.controller
         private void changeUserDetails()
         {
             // Lista användare
-            this.view.showMembersList(this.list.memberList, "Ändra medlemsuppgifter");
+            this.view.showMembersList(this.list.getMemberList(), "Ändra medlemsuppgifter");
 
             // Välj användarens id/nummer via menyn
-            int input = getUserChoiceOfMember(this.list.memberList);
+            int input = getUserChoiceOfMember(this.list.getMemberList());
             
             // Hämta member baserat på Id
             MemberModel member = list.getUserFromList(input);
@@ -119,10 +119,10 @@ namespace GladanCRUD.controller
         private void registerBoat()
         {
             // Visa lista på medlemmar
-            this.view.showMembersList(this.list.memberList, "Registrera båt");
+            this.view.showMembersList(this.list.getMemberList(), "Registrera båt");
 
             // Hämta giltigt id genom inamtning av användaren
-            int input = getUserChoiceOfMember(this.list.memberList);
+            int input = getUserChoiceOfMember(this.list.getMemberList());
 
             // Hämta medlem från MemberList
             MemberModel member = this.list.getUserFromList(input);
@@ -169,10 +169,10 @@ namespace GladanCRUD.controller
             List<MemberModel> boatOwnerList = new List<MemberModel>();
 
             // Undersök vilka medlemmar som har båtar
-            for (int i = 0; i < list.memberList.Count(); i++)
+            for (int i = 0; i < list.getMemberList().Count(); i++)
             {
-                if (list.memberList[i].getBoatListOfUser().Count > 0)
-                    boatOwnerList.Add(list.memberList[i]);
+                if (list.getMemberList()[i].getBoatListOfUser().Count > 0)
+                    boatOwnerList.Add(list.getMemberList()[i]);
             }
 
             return boatOwnerList;
@@ -307,10 +307,10 @@ namespace GladanCRUD.controller
                     addUser();
                     break;
                 case 2:
-                    this.view.showCompactList(this.list.memberList);
+                    this.view.showCompactList(this.list.getMemberList());
                     break;
                 case 3:
-                    this.view.showDetailedList(this.list.memberList, "Medlemslista - Fullständig");
+                    this.view.showDetailedList(this.list.getMemberList(), "Medlemslista - Fullständig");
                     break;
                 case 4:
                     removeUser();
@@ -339,10 +339,10 @@ namespace GladanCRUD.controller
         private void showSingleMember()
         {
             // Visa enkel medlemslista
-            this.view.showMembersList(this.list.memberList);
+            this.view.showMembersList(this.list.getMemberList());
 
             // Välj medlem att visa
-            int input = getUserChoiceOfMember(this.list.memberList);
+            int input = getUserChoiceOfMember(this.list.getMemberList());
             
             // Skapa ny tillfällig lista innehållandes endast en medlem 
             List<MemberModel> singelMemberList = new List<MemberModel>();
