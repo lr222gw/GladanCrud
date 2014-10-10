@@ -75,7 +75,7 @@ namespace GladanCRUD.model
             }
         }
 
-        private void saveMemberList()
+        public void saveMemberList()
         {
             Stream TestFileStream = File.Create(FileName);
             BinaryFormatter serializer = new BinaryFormatter();
