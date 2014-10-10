@@ -12,7 +12,7 @@ namespace GladanCRUD.model
     {
         public List<MemberModel> memberList;                                                        
         const string FileName = @"Members.bin";
-        public int newestId;
+        private int newestId;
         const string newestIdFile = @"NewestId.bin";
 
         public MemberListModel()
@@ -20,6 +20,17 @@ namespace GladanCRUD.model
             this.memberList = new List<MemberModel>();
             this.loadMemberList();       
             this.loadNewestId();
+        }
+
+        //public List<MemberModel> getMemberList()
+        //{
+        //    return this.memberList;
+        //}
+
+        public int getNewestAndUpdateId()
+        {
+            this.newestId += 1;
+            return this.newestId;
         }
 
         public void addMember(MemberModel member)

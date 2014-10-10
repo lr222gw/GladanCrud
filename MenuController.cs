@@ -44,13 +44,13 @@ namespace GladanCRUD.controller
         }
 
         // Skapa ny medlem och lägg till i MemberList
-        public void addUser()
+        private void addUser()
         {
             // Hämta medlemsdata genom inmatning från användaren
             string[] userInfo = this.view.getNewUserInformation();
 
             // Skapa ny medlem och lägg till i MemberList
-            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.newestId +=1));  //list.getUniqueId()));
+            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.getNewestAndUpdateId()));
             this.list.saveNewestId();
 
             // Visa bekräftelse
@@ -116,7 +116,7 @@ namespace GladanCRUD.controller
         }
 
         // Registrera ny båt
-        public void registerBoat()
+        private void registerBoat()
         {
             // Visa lista på medlemmar
             this.view.showMembersList(this.list.memberList, "Registrera båt");
@@ -164,7 +164,7 @@ namespace GladanCRUD.controller
         }
 
         // Skapa lista innehållandes endast båtägare
-        public List<MemberModel> getBoatOwnerList()
+        private List<MemberModel> getBoatOwnerList()
         {
             List<MemberModel> boatOwnerList = new List<MemberModel>();
 
@@ -178,7 +178,7 @@ namespace GladanCRUD.controller
             return boatOwnerList;
         }
 
-        public MemberModel getBoatOwnerIdFromUser()
+        private MemberModel getBoatOwnerIdFromUser()
         {
             // Lista alla båtägare
             List<MemberModel> boatOwnerList = getBoatOwnerList();
@@ -213,7 +213,8 @@ namespace GladanCRUD.controller
         }
         
         // Ta bort båt
-        public void removeBoat() {
+        private void removeBoat()
+        {
             //TODO: bryt ut till båtens radid funktion..
             
             // Hämta vilken båtägare det gäller
@@ -296,7 +297,7 @@ namespace GladanCRUD.controller
         }
 
         // Hantera användarens val av aktivitet
-        public void menuChoiceSwitch(int input)
+        private void menuChoiceSwitch(int input)
         {
             switch(input){
                 case 0:

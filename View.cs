@@ -151,7 +151,6 @@ namespace GladanCRUD.view
             return getUserInput(regexPattern);
         }
 
-        //--------------------------------------------------------------------------------------------------------------------------
         public int getUpdatedValue(string message)
         {
             Console.Out.Write(message);
@@ -170,8 +169,6 @@ namespace GladanCRUD.view
 
             return getUpdatedValue(message);
         }
-        //--------------------------------------------------------------------------------------------------------------------------
-
 
         // Displays an errormessage when user input is invalid
         public void showIllegalInputMessage()
