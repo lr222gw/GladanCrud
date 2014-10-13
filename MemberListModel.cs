@@ -69,10 +69,6 @@ namespace GladanCRUD.model
                 this.memberList = (List<MemberModel>)deserializer.Deserialize(TestFileStream);
                 TestFileStream.Close();
             }
-            else
-            {
-                throw new Exception("Nu blev det något fel, hörru. Filen som allt ska sparas i finns inte");
-            }
         }
 
         public void saveMemberList()
@@ -82,6 +78,7 @@ namespace GladanCRUD.model
             serializer.Serialize(TestFileStream, this.memberList);
             TestFileStream.Close();
         }
+
         public void saveNewestId()
         {
             Stream TestFileStream = File.Create(newestIdFile);
@@ -99,10 +96,6 @@ namespace GladanCRUD.model
                 this.newestId = (int)deserializer.Deserialize(TestFileStream);
                 TestFileStream.Close();
             }
-            else
-            {
-                throw new Exception("Nu blev det något fel, hörru. Filen som allt ska sparas i finns inte");                
-            }
-        }
+         }
     }        
 }

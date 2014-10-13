@@ -10,7 +10,7 @@ namespace GladanCRUD.view
 {
     class View
     {
-        // Displays main menu
+        // Visa huvudmenyn
         public void showMenu()
         {
             Console.Clear();
@@ -29,7 +29,7 @@ namespace GladanCRUD.view
             Console.WriteLine("================================");
         }
 
-        // Shows members in a compact view
+        // Visa kompakt medlemslista
         public void showCompactList(List<MemberModel> membersList)
         {
             Console.Clear();
@@ -49,7 +49,7 @@ namespace GladanCRUD.view
             Console.In.ReadLine();
         }
 
-        // Shows member / members in a detailed view
+        // Visa fullständig medlemslista
         public void showDetailedList(List<MemberModel> membersList, string listTitle)
         {
             Console.Clear();
@@ -89,7 +89,7 @@ namespace GladanCRUD.view
             Console.In.ReadLine();
         }
          
-        // Shows members / boatowners depending on supplied list
+        // Visa medlemslista / båtägarlista beroende på indata
         public void showMembersList(List<MemberModel> members, string listTitle = "Medlemmar")
         {
             Console.Clear();
@@ -106,7 +106,7 @@ namespace GladanCRUD.view
             Console.Out.WriteLine("==================================");
         }
 
-        // Shows a members boats
+        // Visa en medlems båtar
         public void showMemberBoatsList(List<BoatModel> boatList)
         {
             Console.Clear();
@@ -123,7 +123,7 @@ namespace GladanCRUD.view
             Console.Out.WriteLine("==============================");
         }
         
-        // Returns a numeric menu value
+        // Hämta användares val
         public int getUserChoice(string message)
         {
             Console.Out.Write(message);
@@ -138,7 +138,7 @@ namespace GladanCRUD.view
             return getUserChoice(message);
         }
 
-        // Returns a numeric menu value
+        // Hämta indata från användaren
         public string getUserInput(string regexPattern)
         {
             string input = Console.In.ReadLine().Trim();            
@@ -151,6 +151,7 @@ namespace GladanCRUD.view
             return getUserInput(regexPattern);
         }
 
+        // Hämta uppdaterad data
         public int getUpdatedValue(string message)
         {
             Console.Out.Write(message);
@@ -170,13 +171,13 @@ namespace GladanCRUD.view
             return getUpdatedValue(message);
         }
 
-        // Displays an errormessage when user input is invalid
+        // Visa felmeddelande vid ogiltig inmatning
         public void showIllegalInputMessage()
         {
             Console.Out.WriteLine("Ogiltigt inmatning. Försök igen. ");
         }
 
-        // Collect new user information
+        // Samla in ny medlemsinformation
         public string[] getNewUserInformation()
         {
             string[] userDataArr = new string[3];
@@ -197,6 +198,7 @@ namespace GladanCRUD.view
             return userDataArr;
         }
 
+        // Uppdatera medlemsinformation
         public string[] updateAndReturnMemberData(string[] userData)
         {
             string[] updatedUserData = new string[3];
@@ -205,7 +207,6 @@ namespace GladanCRUD.view
             Console.Out.WriteLine("Ändra medlemsuppgifter");
             Console.Out.WriteLine("====================================");
             
-            //Hämtar ny data
             Console.Out.WriteLine("Lämnna tomt för att ignorera ändring");
             
             Console.Out.WriteLine("\nFörnamn: " + userData[0]);
@@ -225,6 +226,7 @@ namespace GladanCRUD.view
             return updatedUserData;
         }
 
+        // Lista tillgängliga båttyper
         public void presentBoatChangeView()
         {
             Console.Clear();
@@ -232,6 +234,7 @@ namespace GladanCRUD.view
             showListOfBoatTypes();
         }
 
+        // Hämta ny båttyp från användaren
         public int updateBoatType(int currentBoatType)
         {            
             Console.Out.WriteLine("Båttyp (ange siffra) \nDin nuvarande typ är:" + (BoatType)currentBoatType + "\n");
@@ -240,6 +243,7 @@ namespace GladanCRUD.view
 
             return updatedBoatData;
         }
+        // Hämta ny båtlängd från användaren
         public int updateBoatLength(int currentBoatLength)
         {
             Console.Out.WriteLine("\nBåtlängd \nDin nuvarande längd är:" + currentBoatLength + "m\n");            
@@ -249,6 +253,7 @@ namespace GladanCRUD.view
             return updatedBoatData;
         }
        
+        // Returna tidigare data om fältet lämnats tomt
         public string[] validateIfInputIsEmptySTRING (string[] updatedData, string[] dataToCheckAgainst)
         {
            
@@ -267,6 +272,8 @@ namespace GladanCRUD.view
             
             return updatedData;
         }
+
+        // Returna tidigare data om fältet lämnats tomt
         public int validateIfInputIsEmptyINT(int updatedData, int dataToCheckAgainst)
         {
             if (updatedData == -1)
@@ -277,6 +284,7 @@ namespace GladanCRUD.view
             return updatedData;
         }
 
+        // Visa lista båttyper
         public void showListOfBoatTypes()
         {
             int enumSize = Enum.GetNames(typeof(BoatType)).Length;
@@ -296,7 +304,7 @@ namespace GladanCRUD.view
             showListOfBoatTypes();
         }
 
-        // Shows a confirmation message after action by user
+        // Visa bekräftelse
         public void confirm(string messageToPrint)
         {
             Console.Out.Write("\n" + messageToPrint);

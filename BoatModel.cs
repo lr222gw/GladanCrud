@@ -17,6 +17,7 @@ namespace GladanCRUD.model
             setBoatType(boatType);
             setBoatLength(length);
         }
+
         private void setBoatType(BoatType boatType)
         {
             if (Enum.IsDefined(typeof(BoatType), boatType))

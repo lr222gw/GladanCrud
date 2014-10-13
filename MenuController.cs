@@ -12,14 +12,13 @@ namespace GladanCRUD.controller
         private View view;
         private MemberListModel list;
 
-        // Constructor 
         public MenuController()
         {
             this.list = new MemberListModel();
             this.view = new View();
         }
 
-        // Show main menu and get user choice
+        // Visa huvudmenyn och hämta användarens menyval
         public void doMenu(){
 
             int input;
@@ -32,7 +31,7 @@ namespace GladanCRUD.controller
                 {
                     input = this.view.getUserChoice("Ange menyalternativ: ");
 
-                    if (input >= 0 && input <= 9)// 0->9 = meny alternativ
+                    if (input >= 0 && input <= 9) // 0 - 9 = Menyalternativ
                         break;
                     
                     this.view.showIllegalInputMessage();
@@ -43,21 +42,18 @@ namespace GladanCRUD.controller
             } while (true);                        
         }
 
-        // Skapa ny medlem och lägg till i MemberList
         private void addUser()
         {
             // Hämta medlemsdata genom inmatning från användaren
             string[] userInfo = this.view.getNewUserInformation();
 
             // Skapa ny medlem och lägg till i MemberList
-            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], list.getNewestAndUpdateId()));
+            this.list.addMember(new MemberModel(userInfo[0], userInfo[1], userInfo[2], this.list.getNewestAndUpdateId()));
             this.list.saveNewestId();
 
-            // Visa bekräftelse
             this.view.confirm("Medlemmen är tillagd, tryck 'ENTER' för att fortsätta...");
         }
 
-        // Hämta giltig inmatning från användaren
         private int getUserChoiceOfMember(List<MemberModel> membersList)
         {
             int input;
@@ -74,32 +70,27 @@ namespace GladanCRUD.controller
             } while (true);
         }
 
-        // Ta bort en medlem
         private void removeUser()
         {
-            // Lista användare
             this.view.showMembersList(this.list.getMemberList(), "Ta bort medlem");
           
             // Hämta användarens val och ta bort användaren
             this.list.deleteUserById(getUserChoiceOfMember(this.list.getMemberList()));
             
-            // Visa bekräftelse
             this.view.confirm("Medlemmen borttagen, tryck 'ENTER' för att fortsätta...");
         }
 
-        // Uppdatera en medlems uppgifter
         private void changeUserDetails()
         {
-            // Lista användare
             this.view.showMembersList(this.list.getMemberList(), "Ändra medlemsuppgifter");
 
-            // Välj användarens id/nummer via menyn
+            // Visa medlemslista och hämta användarens val av id/nummer
             int input = getUserChoiceOfMember(this.list.getMemberList());
             
-            // Hämta member baserat på Id
-            MemberModel member = list.getUserFromList(input);
+            // Hämta medlem baserat på Id
+            MemberModel member = this.list.getUserFromList(input);
 
-            // Hämta medlemsdata från Member
+            // Hämta medlemsdata från MemberModel
             string[] memberData = member.getUserInfo();
 
             // Redigera och visa förnam, efternam, personnummer
@@ -109,25 +100,22 @@ namespace GladanCRUD.controller
             member.updateMember(memberData);
 
             // Spara MemberList
-            list.saveMemberList();
+            this.list.saveMemberList();
 
-            // Visa bekräftelse
             this.view.confirm("Medlemsuppgifterna har uppdaterats, tryck 'ENTER' för att fortsätta...");
         }
 
-        // Registrera ny båt
         private void registerBoat()
         {
-            // Visa lista på medlemmar
             this.view.showMembersList(this.list.getMemberList(), "Registrera båt");
 
-            // Hämta giltigt id genom inamtning av användaren
+            // Hämta giltigt id genom inmatning från användaren
             int input = getUserChoiceOfMember(this.list.getMemberList());
 
             // Hämta medlem från MemberList
             MemberModel member = this.list.getUserFromList(input);
                         
-            // Visa lisat på båttyper
+            // Visa lista på båttyper
             this.view.showBoatTypes();
 
             // Hämta giltig inmatning från användaren
@@ -159,7 +147,6 @@ namespace GladanCRUD.controller
             // Spara MemberList
             this.list.saveMemberList();
 
-            // Visa bekräftelse
             this.view.confirm("Båten har registrerats, tryck 'ENTER' för att fortsätta...");
         }
 
@@ -169,10 +156,10 @@ namespace GladanCRUD.controller
             List<MemberModel> boatOwnerList = new List<MemberModel>();
 
             // Undersök vilka medlemmar som har båtar
-            for (int i = 0; i < list.getMemberList().Count(); i++)
+            for (int i = 0; i < this.list.getMemberList().Count(); i++)
             {
-                if (list.getMemberList()[i].getBoatListOfUser().Count > 0)
-                    boatOwnerList.Add(list.getMemberList()[i]);
+                if (this.list.getMemberList()[i].getBoatListOfUser().Count > 0)
+                    boatOwnerList.Add(this.list.getMemberList()[i]);
             }
 
             return boatOwnerList;
@@ -180,17 +167,17 @@ namespace GladanCRUD.controller
 
         private MemberModel getBoatOwnerIdFromUser()
         {
-            // Lista alla båtägare
+            // Skapa lista med båtägare
             List<MemberModel> boatOwnerList = getBoatOwnerList();
             
-            // Visa lista med båtägare
+            // Visa listan med båtägare
             this.view.showMembersList(boatOwnerList, "Båtägare");
             
             // Hämta användarens val av båtägare
             int input = getUserChoiceOfMember(boatOwnerList);
 
             // Hämta medlem från MemberList
-            MemberModel member = list.getUserFromList(input);            
+            MemberModel member = this.list.getUserFromList(input);            
 
             return member;
         }
@@ -212,11 +199,8 @@ namespace GladanCRUD.controller
             } while (true);
         }
         
-        // Ta bort båt
         private void removeBoat()
         {
-            //TODO: bryt ut till båtens radid funktion..
-            
             // Hämta vilken båtägare det gäller
             MemberModel member = getBoatOwnerIdFromUser();
 
@@ -232,11 +216,9 @@ namespace GladanCRUD.controller
             // Spara MemberList
             this.list.saveMemberList();
 
-            // Visa bekräftelse
             this.view.confirm("Båten har tagits bort, tryck 'ENTER' för att fortsätta...");
         }
 
-        // Uppdatera båtinformation
         private void changeBoatDetails()
         {
             // Hämta vilken båtägare det gäller
@@ -251,7 +233,7 @@ namespace GladanCRUD.controller
             // Hämta båt baserat på radId
             BoatModel boat = member.getBoatByIndex(rowId - 1);
 
-            // Hämta befintliga uppgifter, Redigera och visa båttyp och längd
+            // Hämta befintliga uppgifter, redigera och visa båttyp och längd
             int[] boatInfoArr = boat.getBoatInfo();
 
             int enumSize = Enum.GetNames(typeof(BoatType)).Length;
@@ -282,7 +264,7 @@ namespace GladanCRUD.controller
                 this.view.showIllegalInputMessage();
             } while (true);
             
-            //updaterar array
+            // Updaterar array med båtdata
             boatInfoArr[0] = newBoatType;
             boatInfoArr[1] = newBoatLength;
 
@@ -292,7 +274,6 @@ namespace GladanCRUD.controller
             // Spara MemberList
             this.list.saveMemberList();
 
-            // Visa bekräftelse
             this.view.confirm("Båtinformationen har uppdaterats, tryck 'ENTER' för att fortsätta...");
         }
 
@@ -335,7 +316,6 @@ namespace GladanCRUD.controller
             }
         }
 
-        // Visa detaljerad information om en medlem
         private void showSingleMember()
         {
             // Visa enkel medlemslista

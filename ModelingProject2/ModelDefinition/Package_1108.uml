@@ -83,6 +83,20 @@
               LastKnownName="View"
               LastKnownLocation="Package5_1108.uml" />
           </dependency>
+          <dependency
+            Id="a46e5f1e-78f4-45c8-be66-9d579f2f7169">
+            <classMoniker
+              Id="12ae8760-1f92-4927-b486-d435927d3a3f"
+              LastKnownName="MemberModel"
+              LastKnownLocation="Package4_1108.uml" />
+          </dependency>
+          <dependency
+            Id="857560c0-7ead-42b3-82f6-f44586adc46b">
+            <classMoniker
+              Id="45bad9f8-fa20-4965-94db-7fc4d37c3b5b"
+              LastKnownName="BoatModel"
+              LastKnownLocation="Package4_1108.uml" />
+          </dependency>
         </suppliersInternal>
         <ownedAttributesInternal>
           <property

@@ -55,6 +55,14 @@
             <classMoniker Id="74860da4-853c-4df4-a3e9-ed0fd94d4a2a" LastKnownName="View" />
             <elementDefinition Id="b58a885a-4a85-4bb1-ba35-b141cda9419a" />
           </dependency>
+          <dependency Id="d03bdb6a-46c4-44b0-bb9c-e3afd58e3efb">
+            <classMoniker Id="0692333f-a408-4d1b-898b-ec82e8de5ddd" LastKnownName="MemberModel" />
+            <elementDefinition Id="a46e5f1e-78f4-45c8-be66-9d579f2f7169" />
+          </dependency>
+          <dependency Id="d32eb39f-2685-45b0-bfd4-54a4f4465f88">
+            <classMoniker Id="eeccdcd7-a9b4-4ab9-9be1-9151f3c09b27" LastKnownName="BoatModel" />
+            <elementDefinition Id="857560c0-7ead-42b3-82f6-f44586adc46b" />
+          </dependency>
         </suppliersInternal>
         <ownedAttributesInternal>
           <property Id="5a0fd176-38df-4354-8e83-eb7a4e6ca9ac" name="view" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
